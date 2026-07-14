@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">KatEats</string>
+
+    <string name="fileAuthority">kateats.app</string>
 </resources>
