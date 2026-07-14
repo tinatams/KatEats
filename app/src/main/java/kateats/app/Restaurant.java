@@ -9,12 +9,40 @@ public class Restaurant extends RealmObject {
     @PrimaryKey
     private String uuid = UUID.randomUUID().toString();
     private String name;
+    private String description;
     private String password;
     private byte[] photo;
     private String gmaps;
     private String[] menu;
+    private float rating;
+
+    public float getRating() {
+        return rating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    private boolean liked;
 
     public Restaurant(){}
+
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
 
     public String getUuid() {
         return uuid;

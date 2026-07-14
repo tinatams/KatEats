@@ -21,29 +21,29 @@
         app:layout_constraintVertical_bias="0.046" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/yayButton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="YAY"
-        app:layout_constraintStart_toStartOf="@+id/viewPager22"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager22" />
+        app:layout_constraintStart_toStartOf="@+id/tinderSwipeView"
+        app:layout_constraintTop_toBottomOf="@+id/tinderSwipeView" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/nayButton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"
         android:text="NAY"
-        app:layout_constraintEnd_toEndOf="@+id/viewPager22"
+        app:layout_constraintEnd_toEndOf="@+id/tinderSwipeView"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button" />
+        app:layout_constraintStart_toEndOf="@+id/yayButton"
+        app:layout_constraintTop_toTopOf="@+id/yayButton" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager22"
+        android:id="@+id/tinderSwipeView"
         android:layout_width="332dp"
         android:layout_height="502dp"
         android:layout_marginTop="24dp"

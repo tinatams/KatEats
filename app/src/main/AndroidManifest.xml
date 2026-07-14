@@ -72,6 +72,10 @@ this MUST match your package name in the <manifest> tag
             android:name=".TinderSwipe"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".RestaurantAdaptor"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

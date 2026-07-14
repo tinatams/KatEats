@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/RestaurantNamePlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restaurant Name"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.069" />
+
+    <RatingBar
+        android:id="@+id/ratingPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/RestaurantNamePlaceholder"
+        app:layout_constraintStart_toStartOf="@+id/RestaurantNamePlaceholder"
+        app:layout_constraintTop_toBottomOf="@+id/RestaurantNamePlaceholder" />
+
+    <ImageView
+        android:id="@+id/restaurantPlaceholder"
+        android:layout_width="274dp"
+        android:layout_height="335dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/ratingPlaceholder"
+        app:layout_constraintStart_toStartOf="@+id/ratingPlaceholder"
+        app:layout_constraintTop_toBottomOf="@+id/ratingPlaceholder"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/descriptionPlaceholder"
+        android:layout_width="320dp"
+        android:layout_height="133dp"
+        android:layout_marginTop="16dp"
+        android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam."
+        app:layout_constraintEnd_toEndOf="@+id/restaurantPlaceholder"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="@+id/restaurantPlaceholder"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantPlaceholder" />
+</androidx.constraintlayout.widget.ConstraintLayout>
