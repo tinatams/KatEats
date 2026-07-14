@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation libs.viewpager2
+
     // CAMERA
     implementation files('libs/Android-Image-Cropper-release.aar')
     implementation "androidx.exifinterface:exifinterface:1.4.2"
