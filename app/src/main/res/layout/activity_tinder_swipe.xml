@@ -8,6 +8,53 @@
     tools:context=".TinderSwipe">
 
     <TextView
+        android:id="@+id/restoNamePlaceholder"
+        android:layout_width="211dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="48dp"
+        android:text="Restaurant Name"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <RatingBar
+        android:id="@+id/ratingTinder"
+        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+        android:layout_width="181dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:numStars="5"
+        app:layout_constraintEnd_toEndOf="@+id/imageTinder"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/imageTinder"
+        app:layout_constraintTop_toBottomOf="@+id/restoNamePlaceholder" />
+
+    <ImageView
+        android:id="@+id/imageTinder"
+        android:layout_width="344dp"
+        android:layout_height="238dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restoNamePlaceholder"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/descriptionTinder"
+        android:layout_width="357dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="28dp"
+        android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam."
+        app:layout_constraintEnd_toEndOf="@+id/imageTinder"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="@+id/imageTinder"
+        app:layout_constraintTop_toBottomOf="@+id/imageTinder" />
+
+    <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,10 +72,9 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="YAY"
-        app:layout_constraintStart_toStartOf="@+id/tinderSwipeView"
-        app:layout_constraintTop_toBottomOf="@+id/tinderSwipeView" />
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="635dp" />
 
     <Button
         android:id="@+id/nayButton"
@@ -37,18 +83,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"
         android:text="NAY"
-        app:layout_constraintEnd_toEndOf="@+id/tinderSwipeView"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/yayButton"
         app:layout_constraintTop_toTopOf="@+id/yayButton" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/tinderSwipeView"
-        android:layout_width="332dp"
-        android:layout_height="502dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/restoNamePlaceholder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
