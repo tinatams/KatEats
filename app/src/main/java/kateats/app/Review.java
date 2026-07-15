@@ -17,9 +17,8 @@ public class Review extends RealmObject {
     private float value;
     private float service;
     private String comment;
-    public byte[] photo;
 
-    public Review(String uuid, Restaurant restaurant, float overall, float ambiance, float food, float value, float service, String comment, byte[] photo) {
+    public Review(String uuid, Restaurant restaurant, float overall, float ambiance, float food, float value, float service, String comment) {
         this.uuid = uuid;
         this.restaurant = restaurant;
         this.overall = overall;
@@ -28,7 +27,6 @@ public class Review extends RealmObject {
         this.value = value;
         this.service = service;
         this.comment = comment;
-        this.photo = photo;
     }
 
     public Review(){}
@@ -95,13 +93,5 @@ public class Review extends RealmObject {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
     }
 }
