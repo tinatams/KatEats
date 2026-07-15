@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class ReviewDisplay extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class ReviewDisplay extends AppCompatActivity {
 
         reviewView.setLayoutManager(mLayoutManager);
 
-        reviews = realm.where(Review.class).findAll();
+        reviews = realm.where(Review.class).sort("createdAt", Sort.DESCENDING).findAll();
 
         ReviewAdaptor adapter = new ReviewAdaptor(this, reviews);
         reviewView.setAdapter(adapter);

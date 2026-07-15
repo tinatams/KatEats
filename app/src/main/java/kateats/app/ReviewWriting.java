@@ -117,6 +117,7 @@ public class ReviewWriting extends AppCompatActivity {
                         r.setValue(value.getRating());
                         r.setService(service.getRating());
                         r.setComment(comments.getText().toString());
+                        r.setCreatedAt(System.currentTimeMillis());
                         realm.beginTransaction();
                         realm.copyToRealmOrUpdate(r);
                         realm.commitTransaction();
