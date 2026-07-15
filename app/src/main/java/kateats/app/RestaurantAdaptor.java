@@ -38,6 +38,8 @@ public class RestaurantAdaptor extends RealmRecyclerViewAdapter<Restaurant, Rest
         if (resto == null){
             return;
         }
+
+
         holder.restaurantName.setText(resto.getName());
         holder.rating.setRating(resto.getRating());
         holder.description.setText(resto.getDescription());

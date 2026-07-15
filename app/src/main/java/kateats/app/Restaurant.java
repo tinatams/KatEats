@@ -1,7 +1,5 @@
 package kateats.app;
 
-import static java.lang.System.in;
-
 import java.util.UUID;
 
 import io.realm.RealmObject;
@@ -17,6 +15,26 @@ public class Restaurant extends RealmObject {
     private String gmaps;
     private String[] menu;
     private float rating;
+    public static String[] CUISINE_OPTIONS = {"All", "Italian", "Japanese", "Filipino", "Thai"};
+    private String[] cuisine;
+    private boolean liked;
+
+    public String[] getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String[] cuisine) {
+        this.cuisine = cuisine;
+    }
+
+    public boolean isCuisine(String c){
+        for (String cu : cuisine){
+            if (cu.equals(c)){
+                return true;
+            }
+        }
+        return false;
+    }
     private String[] cuisine;
 
     public String[] getCuisine() {
@@ -51,8 +69,6 @@ public class Restaurant extends RealmObject {
     public void setRating(float rating) {
         this.rating = rating;
     }
-
-    private boolean liked;
 
     public Restaurant(){}
 

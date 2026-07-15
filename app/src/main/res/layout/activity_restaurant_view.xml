@@ -8,7 +8,7 @@
     tools:context=".RestaurantView">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/restaurantName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="RESTAURANT"
@@ -21,37 +21,37 @@
         app:layout_constraintVertical_bias="0.049" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/restoImage"
         android:layout_width="339dp"
         android:layout_height="173dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+        app:layout_constraintTop_toBottomOf="@+id/overallRating"
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/descriptionView"
         android:layout_width="378dp"
         android:layout_height="126dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="16dp"
         android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam."
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintEnd_toEndOf="@+id/restoImage"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="@+id/restoImage"
+        app:layout_constraintTop_toBottomOf="@+id/valueRating" />
 
     <RatingBar
-        android:id="@+id/ratingBar"
+        android:id="@+id/overallRating"
         style="@android:style/Widget.DeviceDefault.RatingBar.Indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:isIndicator="true"
         android:numStars="5"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintEnd_toEndOf="@+id/restaurantName"
+        app:layout_constraintStart_toStartOf="@+id/restaurantName"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantName" />
 
     <TextView
         android:id="@+id/textView3"
@@ -60,11 +60,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
         android:text="Food Drink"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/descriptionView"
+        app:layout_constraintTop_toBottomOf="@+id/restoImage" />
 
     <RatingBar
-        android:id="@+id/ratingBar3"
+        android:id="@+id/foodDrinkRating"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,11 +73,11 @@
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <RatingBar
-        android:id="@+id/ratingBar2"
+        android:id="@+id/valueRating"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/ratingBar3"
+        app:layout_constraintEnd_toEndOf="@+id/foodDrinkRating"
         app:layout_constraintHorizontal_bias="0.886"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/textView4" />
@@ -105,17 +105,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <RatingBar
-        android:id="@+id/ratingBar6"
+        android:id="@+id/serviceRating"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/ratingBar5"
+        app:layout_constraintEnd_toEndOf="@+id/ambianceRating"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <RatingBar
-        android:id="@+id/ratingBar5"
+        android:id="@+id/ambianceRating"
         style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -128,9 +128,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ambiance"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/descriptionView"
         app:layout_constraintHorizontal_bias="0.244"
-        app:layout_constraintStart_toEndOf="@+id/ratingBar3"
+        app:layout_constraintStart_toEndOf="@+id/foodDrinkRating"
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
@@ -143,15 +143,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionView" />
 
     <ScrollView
         android:layout_width="388dp"
         android:layout_height="165dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/descriptionView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/descriptionView"
         app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         <LinearLayout
@@ -160,11 +160,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/menuView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam." />
+                android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam." />
         </LinearLayout>
     </ScrollView>
 

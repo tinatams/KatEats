@@ -4,15 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -20,8 +20,12 @@ import io.realm.RealmResults;
 public class TinderSwipe extends AppCompatActivity {
     Button yay;
     Button nay;
-    Restaurant currentRestaurant;
+    int currentRestaurant;
     Realm realm;
+    TextView restoName;
+    TextView description;
+    RatingBar rating;
+    ImageView restoImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,22 +40,27 @@ public class TinderSwipe extends AppCompatActivity {
 
         init();
     }
-
+    RealmResults<Restaurant> restoList;
     private void init(){
+        restoName = findViewById(R.id.restoNamePlaceholder);
+        description = findViewById(R.id.descriptionTinder);
+        rating = findViewById(R.id.ratingTinder);
+        restoImage = findViewById(R.id.imageTinder);
+
         yay = findViewById(R.id.yayButton);
         nay = findViewById(R.id.nayButton);
 
         yay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                yayResto(currentRestaurant);
+                yayResto();
             }
         });
 
         nay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nayResto(currentRestaurant);
+                nayResto();
             }
         });
 
@@ -59,20 +68,40 @@ public class TinderSwipe extends AppCompatActivity {
         //REALM STUFF
         realm = Realm.getDefaultInstance();
 
-        RealmResults<Restaurant> datalist = realm.where(Restaurant.class).findAll();
+        restoList = realm.where(Restaurant.class).findAll();
+        currentRestaurant = 0;
+        setResto(currentRestaurant);
     }
 
-    private void yayResto(Restaurant r){
-        r.setLiked(true);
+    private void setResto(int restoNum){
+        if (restoNum >= restoList.size()){
+            allDone();
+            return;
+        }
+        Restaurant r = restoList.get(restoNum);
+        restoName.setText(r.getName());
+        description.setText(r.getDescription());
+        rating.setRating(r.getRating());
     }
 
-    private void nayResto(Restaurant r){
-        r.setLiked(false);
+    private void yayResto(){
+        realm.beginTransaction();
+        restoList.get(currentRestaurant).setLiked(true);
+        realm.commitTransaction();
+        setResto(++currentRestaurant);
+    }
+
+    private void nayResto(){
+        realm.beginTransaction();
+        restoList.get(currentRestaurant).setLiked(false);
+        realm.commitTransaction();
+        setResto(++currentRestaurant);
     }
 
     public void allDone(){
         Intent i = new Intent(this, LikedRestaurants.class);
         startActivity(i);
+        finish();
     }
 
     public void onDestroy(){
