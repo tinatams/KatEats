@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.046" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/searchLiked"
         android:layout_width="229dp"
         android:layout_height="44dp"
         android:layout_marginTop="12dp"
@@ -31,28 +31,28 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="@+id/textView5"
         app:layout_constraintHorizontal_bias="0.195"
-        app:layout_constraintStart_toStartOf="@+id/viewPager2"
+        app:layout_constraintStart_toStartOf="@+id/likedRestoViewer"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
+        android:id="@+id/likedRestoViewer"
         android:layout_width="306dp"
         android:layout_height="451dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/searchLiked" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/submitSearchLike"
         style="@android:style/Widget.Holo.ImageButton"
         android:layout_width="57dp"
         android:layout_height="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/viewPager2"
+        app:layout_constraintEnd_toEndOf="@+id/likedRestoViewer"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextText"
-        app:layout_constraintTop_toTopOf="@+id/editTextText"
+        app:layout_constraintStart_toEndOf="@+id/searchLiked"
+        app:layout_constraintTop_toTopOf="@+id/searchLiked"
         app:srcCompat="@android:drawable/ic_menu_search" />
 
     <androidx.core.widget.NestedScrollView
@@ -62,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager2">
+        app:layout_constraintTop_toBottomOf="@+id/likedRestoViewer">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     android:gravity="center">
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/submitLikeFilters"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="submit" />
@@ -111,7 +111,7 @@
                         android:textStyle="bold" />
 
                     <RatingBar
-                        android:id="@+id/ratingBar4"
+                        android:id="@+id/filterLikedRating"
                         style="@style/Widget.AppCompat.RatingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="43dp"
@@ -128,13 +128,13 @@
                     android:layout_height="match_parent" >
 
                     <CheckBox
-                        android:id="@+id/alphabetical"
+                        android:id="@+id/alphabeticalLiked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Alphabetical" />
 
                     <Spinner
-                        android:id="@+id/TypePicker"
+                        android:id="@+id/filterLikedCuisine"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minHeight="48dp" />
