@@ -61,4 +61,11 @@ public class ReviewDisplay extends AppCompatActivity {
         Intent i = new Intent(this, ReviewWriting.class);
         startActivity(i);
     }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!realm.isClosed()) {
+            realm.close();
+        }
+    }
 }
