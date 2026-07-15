@@ -23,12 +23,22 @@ public class ReviewAdaptor extends RealmRecyclerViewAdapter<Review, ReviewAdapto
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView restaurant;
         RatingBar score;
+        RatingBar ambiance;
+        RatingBar food;
+        RatingBar value;
+        RatingBar service;
+        TextView comment;
         ImageView photo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             restaurant = itemView.findViewById(R.id.layout_review_name);
             score = itemView.findViewById(R.id.layout_review_score);
+            ambiance = itemView.findViewById(R.id.layout_ambiance_score);
+            food = itemView.findViewById(R.id.layout_food_score);
+            value = itemView.findViewById(R.id.layout_value_score);
+            service = itemView.findViewById(R.id.layout_service_score);
+            comment = itemView.findViewById(R.id.layout_comment);
             photo = itemView.findViewById(R.id.layout_review_photo);
         }
     }
@@ -53,7 +63,13 @@ public class ReviewAdaptor extends RealmRecyclerViewAdapter<Review, ReviewAdapto
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Review r = getItem(position);
         holder.restaurant.setText(r.getRestaurant().getName());
+        holder.comment.setText(r.getComment());
         holder.score.setRating(r.getOverall());
+        holder.ambiance.setRating(r.getAmbiance());
+        holder.food.setRating(r.getFood());
+        holder.value.setRating(r.getValue());
+        holder.service.setRating(r.getService());
+
         File image = new File(
                 activity.getExternalCacheDir(),
                 r.getUuid() + ".jpeg"

@@ -6,10 +6,71 @@
     android:layout_height="wrap_content"
     android:padding="15sp">
 
-    <ImageView
-        android:id="@+id/layout_review_photo"
+    <RatingBar
+        android:id="@+id/layout_service_score"
+        style="@style/Widget.AppCompat.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/layout_value_score"
+        app:layout_constraintTop_toBottomOf="@+id/layout_value_score" />
+
+    <RatingBar
+        android:id="@+id/layout_value_score"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/layout_food_score"
+        app:layout_constraintTop_toBottomOf="@+id/layout_food_score" />
+
+    <RatingBar
+        android:id="@+id/layout_food_score"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/layout_ambiance_score"
+        app:layout_constraintTop_toBottomOf="@+id/layout_ambiance_score" />
+
+    <TextView
+        android:id="@+id/layout_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food &amp; Drinks:"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@+id/layout_ambiance"
+        app:layout_constraintTop_toBottomOf="@+id/layout_ambiance" />
+
+    <TextView
+        android:id="@+id/layout_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Value:"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@+id/layout_food"
+        app:layout_constraintTop_toBottomOf="@+id/layout_food" />
+
+    <TextView
+        android:id="@+id/layout_ambiance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Ambiance:"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@+id/layout_review_photo"
+        app:layout_constraintTop_toBottomOf="@+id/layout_review_photo" />
+
+    <TextView
+        android:id="@+id/layout_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service:"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="@+id/layout_value"
+        app:layout_constraintTop_toBottomOf="@+id/layout_value" />
+
+    <ImageView
+        android:id="@+id/layout_review_photo"
+        android:layout_width="118dp"
+        android:layout_height="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.003"
@@ -26,19 +87,44 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toEndOf="@+id/layout_review_photo"
         app:layout_constraintTop_toTopOf="@+id/layout_review_photo"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.01" />
 
     <RatingBar
         android:id="@+id/layout_review_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/layout_review_photo"
-        app:layout_constraintEnd_toEndOf="@+id/layout_review_name"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/layout_overall"
+        app:layout_constraintTop_toBottomOf="@+id/layout_overall" />
+
+    <TextView
+        android:id="@+id/layout_overall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Overall:"
         app:layout_constraintStart_toStartOf="@+id/layout_review_name"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_review_name" />
+
+    <RatingBar
+        android:id="@+id/layout_ambiance_score"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        app:layout_constraintStart_toEndOf="@+id/layout_ambiance"
+        app:layout_constraintTop_toTopOf="@+id/layout_ambiance" />
+
+    <TextView
+        android:id="@+id/layout_comment"
+        android:layout_width="193dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="16dp"
+        android:text="TextView"
+        android:textSize="9sp"
+        app:layout_constraintStart_toEndOf="@+id/layout_food_score"
+        app:layout_constraintTop_toTopOf="@+id/layout_ambiance_score" />
 </androidx.constraintlayout.widget.ConstraintLayout>
