@@ -34,12 +34,12 @@
         android:id="@+id/textView2"
         android:layout_width="378dp"
         android:layout_height="126dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="16dp"
         android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam."
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -162,9 +162,9 @@
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam." />
+                android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam." />
         </LinearLayout>
     </ScrollView>
 
