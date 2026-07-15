@@ -1,5 +1,6 @@
 package kateats.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -82,6 +83,13 @@ public class LikedRestaurants extends AppCompatActivity {
             }
         });
 
+        restoViewer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectResto();
+            }
+        });
+
 
         //REALM STUFF
         realm = Realm.getDefaultInstance();
@@ -92,6 +100,17 @@ public class LikedRestaurants extends AppCompatActivity {
         restoViewer.setAdapter(adaptor);
 
 
+    }
+
+    public void selectResto(){
+        int position = restoViewer.getCurrentItem();
+
+        Intent i = new Intent(this, LikedRestaurants.class);
+        String restoUUID = restoSet.get(position).getUuid();
+
+        i.putExtra("restoID", restoUUID);
+        startActivity(i);
+        finish();
     }
 
     public void searchResto(){
