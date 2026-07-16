@@ -50,6 +50,17 @@ this MUST match your package name in the <manifest> tag
         </provider>
 
         <activity android:name=".RegisterActivity" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".ImageActivity" />
         <activity
             android:name=".MainActivity"
