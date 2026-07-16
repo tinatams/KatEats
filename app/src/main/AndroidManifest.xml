@@ -49,6 +49,7 @@ this MUST match your package name in the <manifest> tag
                 android:resource="@xml/file_provider_path" />
         </provider>
 
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".ImageActivity" />
         <activity
             android:name=".MainActivity"
