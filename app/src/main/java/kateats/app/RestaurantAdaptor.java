@@ -1,5 +1,7 @@
 package kateats.app;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,17 +17,17 @@ import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 
 public class RestaurantAdaptor extends RealmRecyclerViewAdapter<Restaurant, RestaurantAdaptor.ViewHolder> {
-    LikedRestaurants activity;
-    public RestaurantAdaptor(LikedRestaurants activity, @Nullable OrderedRealmCollection<Restaurant> data) {
+    Context context;
+    public RestaurantAdaptor(Context context, @Nullable OrderedRealmCollection<Restaurant> data) {
         super(data, true);
-        this.activity = activity;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create the raw view for this ViewHolder
-        View v = activity.getLayoutInflater().inflate(R.layout.restaurant_layout, parent, false);  // VERY IMPORTANT TO USE THIS STYLE
+        View v = LayoutInflater.from(context).inflate(R.layout.restaurant_layout, parent, false);  // VERY IMPORTANT TO USE THIS STYLE
 
         // assign view to the viewholder
         ViewHolder vh = new ViewHolder(v);
