@@ -12,7 +12,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:text="Submit Review"
         app:layout_constraintEnd_toEndOf="@+id/reviewComments"
         app:layout_constraintTop_toBottomOf="@+id/reviewComments" />
@@ -166,7 +166,7 @@
         android:id="@+id/reviewComments"
         android:layout_width="370dp"
         android:layout_height="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:hint="General Comments"
         android:maxLength="255"
         android:maxLines="5"
