@@ -111,6 +111,7 @@ public class ReviewWriting extends AppCompatActivity {
                         Review r = new Review();
                         r.setUuid(uuid);
                         r.setRestaurant(chosenRestaurant);
+                        r.setCuisine(chosenRestaurant.getCuisine());
                         r.setOverall(overall.getRating());
                         r.setAmbiance(ambiance.getRating());
                         r.setFood(food.getRating());
