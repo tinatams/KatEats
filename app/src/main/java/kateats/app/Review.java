@@ -18,9 +18,10 @@ public class Review extends RealmObject {
     private float service;
     private String comment;
     private long createdAt;
+    private String[] cuisine;
 
 
-    public Review(String uuid, Restaurant restaurant, float overall, float ambiance, float food, float value, float service, String comment) {
+    public Review(String uuid, Restaurant restaurant, float overall, float ambiance, float food, float value, float service, String comment, long createdAt, String[] cuisine) {
         this.uuid = uuid;
         this.restaurant = restaurant;
         this.overall = overall;
@@ -29,6 +30,8 @@ public class Review extends RealmObject {
         this.value = value;
         this.service = service;
         this.comment = comment;
+        this.cuisine = cuisine;
+        this.createdAt = createdAt;
     }
 
     public Review(){}
@@ -102,5 +105,13 @@ public class Review extends RealmObject {
     }
     public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String[] getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(String[] cuisine) {
+        this.cuisine = cuisine;
     }
 }

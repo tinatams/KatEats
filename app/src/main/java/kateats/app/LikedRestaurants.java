@@ -24,7 +24,7 @@ import io.realm.RealmResults;
 
 public class LikedRestaurants extends AppCompatActivity {
     Realm realm;
-    TextView seachBar;
+    TextView searchBar;
     ImageButton submitSearch;
     Button submitFilters;
     RatingBar filterRating;
@@ -49,7 +49,7 @@ public class LikedRestaurants extends AppCompatActivity {
 
     RealmResults<Restaurant> restoSet;
     private void init(){
-        seachBar = findViewById(R.id.searchLiked);
+        searchBar = findViewById(R.id.searchLiked);
         submitSearch = findViewById(R.id.submitSearchLike);
         submitFilters = findViewById(R.id.submitLikeFilters);
         filterRating = findViewById(R.id.filterLikedRating);
@@ -114,14 +114,14 @@ public class LikedRestaurants extends AppCompatActivity {
     }
 
     public void searchResto(){
-        String searchThing = seachBar.getText().toString();
+        String searchThing = searchBar.getText().toString();
         restoSet = realm.where(Restaurant.class).beginsWith("name",searchThing).findAll();
         RestaurantAdaptor adaptor = new RestaurantAdaptor(this, restoSet);
         restoViewer.setAdapter(adaptor);
     }
 
     public void filterResto(){
-        String searchThing = seachBar.getText().toString();
+        String searchThing = searchBar.getText().toString();
         float rating = filterRating.getRating();
         String cuisine =  filterCuisine.getSelectedItem().toString();
         boolean alpha = filterAlphabetical.isChecked();
