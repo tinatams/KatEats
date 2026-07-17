@@ -130,9 +130,16 @@ public class ReviewWriting extends AppCompatActivity {
                         r.setService(service.getRating());
                         r.setComment(comments.getText().toString());
                         r.setCreatedAt(System.currentTimeMillis());
+
+
                         realm.beginTransaction();
+
                         realm.copyToRealmOrUpdate(r);
+                        Number avg = realm.where(Review.class).equalTo("restaurant.uuid", chosenRestaurant.getUuid()).average("overall");
+                        chosenRestaurant.setRating(avg.floatValue());
                         realm.commitTransaction();
+
+
                         goToReviewDisplay();
                     }
                 }

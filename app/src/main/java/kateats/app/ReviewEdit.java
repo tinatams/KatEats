@@ -42,6 +42,7 @@ public class ReviewEdit extends AppCompatActivity {
     String uuid;
     Review review;
     TextView restaurant;
+    Restaurant restoObject;
     EditText comments;
     RatingBar overall;
     RatingBar ambiance;
@@ -118,8 +119,14 @@ public class ReviewEdit extends AppCompatActivity {
                     review.setFood(food.getRating());
                     review.setService(service.getRating());
                     review.setValue(value.getRating());
+
+
                     realm.copyToRealmOrUpdate(review);
+                    Number avg = realm.where(Review.class).equalTo("restaurant.uuid", review.getRestaurant().getUuid()).average("overall");
+                    review.getRestaurant().setRating(avg.floatValue());
                     realm.commitTransaction();
+
+
                     goToReviewDisplay();
                 }
 
