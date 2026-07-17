@@ -1,8 +1,5 @@
 package kateats.app;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -13,67 +10,102 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+
 import io.realm.OrderedRealmCollection;
+import io.realm.Realm;
 import io.realm.RealmRecyclerViewAdapter;
 
 public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAdapter.ViewHolder> {
+    AdminActivity activity;
 
-    private AdminActivity activity;
-    private OnUserActionListener listener;
 
-    public interface OnUserActionListener {
-        void onDelete(User user);
-        void onEdit(User user);
-        void onCapturePhoto(User user);
+    public class ViewHolder extends RecyclerView.ViewHolder{
+        ImageView pfp;
+        TextView accName, accPassword;
+        ImageButton photo, edit, delete;
+        public ViewHolder(@NonNull View itemView){
+            super(itemView);
+            pfp = itemView.findViewById(R.id.imgRowProfile);
+            accName = itemView.findViewById(R.id.tvRowName);
+            accPassword = itemView.findViewById(R.id.tvRowPassword);
+            photo = itemView.findViewById(R.id.btnRowCamera);
+            edit = itemView.findViewById(R.id.btnRowEdit);
+            delete = itemView.findViewById(R.id.btnRowDelete);
+        }
     }
 
-    public AdminUserAdapter(AdminActivity activity, @Nullable OrderedRealmCollection<User> data, OnUserActionListener listener) {
-        super(data, true); // true enables automatic UI updates when the database updates
+    public AdminUserAdapter(AdminActivity activity, @Nullable OrderedRealmCollection<User> data){
+        super(data, true);
         this.activity = activity;
-        this.listener = listener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_row, parent, false);
-        return new ViewHolder(view);
+        View v = activity.getLayoutInflater().inflate(R.layout.item_admin_row, parent, false);  // VERY IMPORTANT TO USE THIS STYLE
+
+        // assign view to the viewholder
+        ViewHolder vh = new ViewHolder(v);
+        return vh;
     }
 
+    User user;
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        User user = getItem(position);
-        if (user == null) return;
+        user = getItem(position);
+        holder.accName.setText(user.getName());
+        holder.accPassword.setText(user.getPassword());
 
-        holder.tvName.setText(user.getName());
-        holder.tvUuid.setText("UUID: " + user.getUuid());
+        // gives you the data object at the given position
+        File getImageDir = activity.getExternalCacheDir();  // this method is in the Activity class
 
-        // Decode byte[] photo
-        if (user.getPhoto() != null && user.getPhoto().length > 0) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(user.getPhoto(), 0, user.getPhoto().length);
-            holder.imgProfile.setImageBitmap(bitmap);
-        } else {
-            holder.imgProfile.setImageResource(R.mipmap.ic_launcher);
+        // just a sample, normally you have a diff image name each time
+        File file = new File(getImageDir, user.getUuid()+"user.jpeg");
+
+        if (file.exists()) {
+            // this will put the image saved to the file system to the imageview
+            Picasso.get()
+                    .load(file)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(holder.pfp);
+        }
+        else {
+            // use a default picture
+            holder.pfp.setImageResource(R.mipmap.ic_launcher);
         }
 
-        holder.btnDelete.setOnClickListener(v -> listener.onDelete(user));
-        holder.btnEdit.setOnClickListener(v -> listener.onEdit(user));
-        holder.btnCamera.setOnClickListener(v -> listener.onCapturePhoto(user));
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Realm realm = user.getRealm();
+
+                realm.beginTransaction();
+                user.deleteFromRealm();
+                realm.commitTransaction();
+            }
+        });
+
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent i = new Intent(activity, EditUser.class);
+                //i.putExtra("userID", user.getUuid());
+                //activity.startActivity(i);
+            }
+        });
+
+        holder.pfp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.takePhoto(user, null, "USER");
+            }
+        });
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgProfile;
-        TextView tvName, tvUuid;
-        ImageButton btnCamera, btnEdit, btnDelete;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imgProfile = itemView.findViewById(R.id.imgRowProfile);
-            tvName = itemView.findViewById(R.id.tvRowName);
-            tvUuid = itemView.findViewById(R.id.tvRowUuid);
-            btnCamera = itemView.findViewById(R.id.btnRowCamera);
-            btnEdit = itemView.findViewById(R.id.btnRowEdit);
-            btnDelete = itemView.findViewById(R.id.btnRowDelete);
-        }
-    }
 }

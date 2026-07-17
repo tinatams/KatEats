@@ -7,11 +7,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -25,16 +33,21 @@ public class AdminActivity extends AppCompatActivity {
     private AdminUserAdapter userAdapter;
     private AdminRestaurantAdapter restaurantAdapter;
 
-    // Temporary trackers to know which object we are updating when we return from the camera activity
-    private String pendingPhotoUuid = null;
-    private boolean isPendingPhotoRestaurant = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
-        // Bind layout views
+        init();
+    }
+
+    private void init() {
         rvUsers = findViewById(R.id.rvUsers);
         rvRestaurants = findViewById(R.id.rvRestaurants);
         btnAddAccount = findViewById(R.id.btnAdminAdd);
@@ -44,13 +57,11 @@ public class AdminActivity extends AppCompatActivity {
 
         setupRecyclerViews();
 
-        // Add Account quickly redirects to the Register screen
         btnAddAccount.setOnClickListener(v -> {
-            Intent intent = new Intent(AdminActivity.this, RegisterActivity.class);
+            Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
         });
 
-        // Clear All Database records
         btnClearAll.setOnClickListener(v -> {
             new AlertDialog.Builder(this)
                     .setTitle("Clear Database")
@@ -62,121 +73,92 @@ public class AdminActivity extends AppCompatActivity {
                     .setNegativeButton("Cancel", null)
                     .show();
         });
+
     }
 
     private void setupRecyclerViews() {
-        // Query all Users ordered by name
+        rvUsers = findViewById(R.id.rvUsers);
         RealmResults<User> users = realm.where(User.class).findAll().sort("name");
-        userAdapter = new AdminUserAdapter(this, users, new AdminUserAdapter.OnUserActionListener() {
-            @Override
-            public void onDelete(User user) {
-                final String uuid = user.getUuid();
-                realm.executeTransaction(r -> {
-                    User toDelete = r.where(User.class).equalTo("uuid", uuid).findFirst();
-                    if (toDelete != null) toDelete.deleteFromRealm();
-                });
-            }
 
-            @Override
-            public void onEdit(User user) {
-                showEditNameDialog(user.getUuid(), user.getName(), false);
-            }
-
-            @Override
-            public void onCapturePhoto(User user) {
-                pendingPhotoUuid = user.getUuid();
-                isPendingPhotoRestaurant = false;
-
-                Intent intent = new Intent(AdminActivity.this, ImageActivity.class);
-                startActivityForResult(intent, 200);
-            }
-        });
-
-        rvUsers.setLayoutManager(new LinearLayoutManager(this));
-        rvUsers.setAdapter(userAdapter);
-
-        // Query all Restaurants ordered by name
+        rvRestaurants = findViewById(R.id.rvRestaurants);
         RealmResults<Restaurant> restaurants = realm.where(Restaurant.class).findAll().sort("name");
-        restaurantAdapter = new AdminRestaurantAdapter(this, restaurants, new AdminRestaurantAdapter.OnRestaurantActionListener() {
-            @Override
-            public void onDelete(Restaurant restaurant) {
-                final String uuid = restaurant.getUuid();
-                realm.executeTransaction(r -> {
-                    Restaurant toDelete = r.where(Restaurant.class).equalTo("uuid", uuid).findFirst();
-                    if (toDelete != null) toDelete.deleteFromRealm();
-                });
-            }
 
-            @Override
-            public void onEdit(Restaurant restaurant) {
-                showEditNameDialog(restaurant.getUuid(), restaurant.getName(), true);
-            }
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        rvUsers.setLayoutManager(mLayoutManager);
+        LinearLayoutManager nLayoutManager = new LinearLayoutManager(this);
+        nLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        rvRestaurants.setLayoutManager(nLayoutManager);
 
-            @Override
-            public void onCapturePhoto(Restaurant restaurant) {
-                pendingPhotoUuid = restaurant.getUuid();
-                isPendingPhotoRestaurant = true;
-
-                Intent intent = new Intent(AdminActivity.this, ImageActivity.class);
-                startActivityForResult(intent, 200);
-            }
-        });
-
-        rvRestaurants.setLayoutManager(new LinearLayoutManager(this));
+        userAdapter = new AdminUserAdapter(this, users);
+        rvUsers.setAdapter(userAdapter);
+        restaurantAdapter = new AdminRestaurantAdapter(this, restaurants);
         rvRestaurants.setAdapter(restaurantAdapter);
+
     }
 
-    private void showEditNameDialog(String uuid, String currentName, boolean isRestaurant) {
-        EditText etNameInput = new EditText(this);
-        etNameInput.setText(currentName);
+    //CAMERA STUFF
 
-        new AlertDialog.Builder(this)
-                .setTitle("Edit Account Name")
-                .setView(etNameInput)
-                .setPositiveButton("Save", (dialog, which) -> {
-                    String newName = etNameInput.getText().toString().trim();
-                    if (newName.isEmpty()) {
-                        Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+    public static int REQUEST_CODE_IMAGE_SCREEN = 0;
 
-                    realm.executeTransaction(r -> {
-                        if (isRestaurant) {
-                            Restaurant resto = r.where(Restaurant.class).equalTo("uuid", uuid).findFirst();
-                            if (resto != null) resto.setName(newName);
-                        } else {
-                            User u = r.where(User.class).equalTo("uuid", uuid).findFirst();
-                            if (u != null) u.setName(newName);
-                        }
-                    });
-                    Toast.makeText(this, "Name updated!", Toast.LENGTH_SHORT).show();
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
+    String type;
+    User remeberedUser;
+    Restaurant rememberedResto;
+    public void takePhoto(@Nullable User u, @Nullable Restaurant r, String type)
+    {
+        if (type.equals("USER")) remeberedUser = u;
+        else if (type.equals("RESTO")) rememberedResto = r;
+
+        this.type = type;
+        Intent i = new Intent(this, ImageActivity.class);
+        startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        // Code 200 indicates we are updating an image inside the admin list
-        if (requestCode == 200 && resultCode == ImageActivity.RESULT_CODE_IMAGE_TAKEN && data != null) {
-            byte[] jpeg = data.getByteArrayExtra("rawJpeg");
-            if (jpeg != null && pendingPhotoUuid != null) {
-                realm.executeTransaction(r -> {
-                    if (isPendingPhotoRestaurant) {
-                        Restaurant resto = r.where(Restaurant.class).equalTo("uuid", pendingPhotoUuid).findFirst();
-                        if (resto != null) resto.setPhoto(jpeg);
-                    } else {
-                        User user = r.where(User.class).equalTo("uuid", pendingPhotoUuid).findFirst();
-                        if (user != null) user.setPhoto(jpeg);
+    public void onActivityResult(int requestCode, int responseCode, Intent data)
+    {
+        super.onActivityResult(requestCode, responseCode, data);
+
+        if (requestCode==REQUEST_CODE_IMAGE_SCREEN)
+        {
+            if (responseCode==ImageActivity.RESULT_CODE_IMAGE_TAKEN)
+            {
+                // receieve the raw JPEG data from ImageActivity
+                // this can be saved to a file or save elsewhere like Realm or online
+                byte[] jpeg = data.getByteArrayExtra("rawJpeg");
+
+                try {
+                    //SAVE
+                    // save rawImage to file
+                    if (type.equals("USER")){
+                        File savedImage = saveFile(jpeg, remeberedUser.getUuid()+"user.jpeg");
+                    } else if (type.equals("RESTO")){
+                        File savedImage = saveFile(jpeg, remeberedUser.getUuid()+"resto.jpeg");
                     }
-                });
-                Toast.makeText(this, "Photo updated successfully!", Toast.LENGTH_SHORT).show();
+
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
             }
-            // Reset state trackers
-            pendingPhotoUuid = null;
         }
+    }
+
+    private File saveFile(byte[] jpeg, String filename) throws IOException
+    {
+        // this is the root directory for the images
+        File getImageDir = getExternalCacheDir();
+
+        // just a sample, normally you have a diff image name each time
+        File savedImage = new File(getImageDir, filename);
+
+
+        FileOutputStream fos = new FileOutputStream(savedImage);
+        fos.write(jpeg);
+        fos.close();
+        return savedImage;
     }
 
     @Override

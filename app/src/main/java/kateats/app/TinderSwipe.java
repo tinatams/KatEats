@@ -69,6 +69,9 @@ public class TinderSwipe extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         restoList = realm.where(Restaurant.class).findAll();
+        for (Restaurant r : restoList){
+            r.setLiked(true);
+        }
         currentRestaurant = 0;
         setResto(currentRestaurant);
     }
