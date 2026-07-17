@@ -41,8 +41,6 @@ public class ReviewEdit extends AppCompatActivity {
 
     String uuid;
     Review review;
-    String currentUserUuid;
-    User currentUser;
     TextView restaurant;
     EditText comments;
     RatingBar overall;
@@ -60,7 +58,7 @@ public class ReviewEdit extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_review_writing);
+        setContentView(R.layout.activity_review_edit);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -75,14 +73,15 @@ public class ReviewEdit extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         review = realm.where(Review.class).equalTo("uuid", uuid).findFirst();
 
-        restaurant = findViewById(R.id.reviewRestaurant);
-        comments = findViewById(R.id.reviewComments);
-        overall = findViewById(R.id.reviewOverall);
-        ambiance = findViewById(R.id.reviewAmbiance);
-        food = findViewById(R.id.reviewFood);
-        value = findViewById(R.id.reviewValue);
-        service = findViewById(R.id.reviewService);
-        submit = findViewById(R.id.reviewSubmit);
+        restaurant = findViewById(R.id.editReviewRestaurant);
+        comments = findViewById(R.id.editReviewComments);
+        overall = findViewById(R.id.editReviewOverall);
+        ambiance = findViewById(R.id.editReviewAmbiance);
+        food = findViewById(R.id.editReviewFood);
+        value = findViewById(R.id.editReviewValue);
+        service = findViewById(R.id.editReviewService);
+        submit = findViewById(R.id.editReviewSubmit);
+        photo = findViewById(R.id.editReviewPhoto);
 
         restaurant.setText(review.getRestaurant().getName());
         comments.setText(review.getComment());
@@ -117,7 +116,8 @@ public class ReviewEdit extends AppCompatActivity {
                     review.setOverall(overall.getRating());
                     review.setAmbiance(ambiance.getRating());
                     review.setFood(food.getRating());
-                    review.setService(food.getRating());
+                    review.setService(service.getRating());
+                    review.setValue(value.getRating());
                     realm.copyToRealmOrUpdate(review);
                     realm.commitTransaction();
                     goToReviewDisplay();
