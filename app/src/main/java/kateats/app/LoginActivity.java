@@ -93,8 +93,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(this, "Welcome back, " + user.getName() + "!", Toast.LENGTH_SHORT).show();
 
-                // Navigate to Tinder Swiper screen
-                Intent intent = new Intent(LoginActivity.this, TinderSwipe.class);
+                // Redirected to RestaurantList
+                Intent intent = new Intent(LoginActivity.this, RestaurantList.class);
                 startActivity(intent);
                 finish();
             } else {
@@ -121,8 +121,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 Toast.makeText(this, "Logged in as " + restaurant.getName() + "!", Toast.LENGTH_SHORT).show();
 
-                // Navigate to Restaurant management screen
-                Intent intent = new Intent(LoginActivity.this, RestaurantView.class);
+                // Redirects to RestaurantList
+                Intent intent = new Intent(LoginActivity.this, RestaurantList.class);
                 intent.putExtra("RESTO_UUID", restaurant.getUuid());
                 startActivity(intent);
                 finish();
