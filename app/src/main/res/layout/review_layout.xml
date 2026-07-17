@@ -6,6 +6,17 @@
     android:layout_height="wrap_content"
     android:padding="15sp">
 
+    <Button
+        android:id="@+id/editReview"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="12dip"
+        android:text="Edit Review"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/layout_review_score"
+        app:layout_constraintTop_toBottomOf="@+id/layout_review_name" />
+
     <RatingBar
         android:id="@+id/layout_service_score"
         style="@style/Widget.AppCompat.RatingBar.Small"

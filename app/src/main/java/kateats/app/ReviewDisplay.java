@@ -1,6 +1,7 @@
 package kateats.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -39,6 +40,8 @@ public class ReviewDisplay extends AppCompatActivity {
     ArrayList<String> restaurantNames;
     RealmResults<Review> filtered;
     ReviewAdaptor adapter;
+    SharedPreferences sharedPrefs;
+    String currentUserUuid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,9 @@ public class ReviewDisplay extends AppCompatActivity {
 
         reviewView = findViewById(R.id.reviewView);
         realm = Realm.getDefaultInstance();
+        sharedPrefs = getSharedPreferences("KatEatsPrefs", MODE_PRIVATE);
+        currentUserUuid = sharedPrefs.getString("logged_user_uuid", null);
+
 
         submitFilters = findViewById(R.id.submitReviewFilters);
         filterRestaurant = findViewById(R.id.filterReviewRestaurant);
@@ -91,7 +97,7 @@ public class ReviewDisplay extends AppCompatActivity {
 
         reviews = realm.where(Review.class).sort("createdAt", Sort.DESCENDING).findAll();
 
-        adapter = new ReviewAdaptor(this, reviews);
+        adapter = new ReviewAdaptor(this, currentUserUuid, reviews);
         reviewView.setAdapter(adapter);
 
         makeReview = findViewById(R.id.makeReview);

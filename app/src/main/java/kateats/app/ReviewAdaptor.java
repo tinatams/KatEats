@@ -1,7 +1,9 @@
 package kateats.app;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -30,6 +32,8 @@ public class ReviewAdaptor extends RealmRecyclerViewAdapter<Review, ReviewAdapto
         TextView comment;
         ImageView photo;
         TextView author;
+        Button edit;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -42,14 +46,17 @@ public class ReviewAdaptor extends RealmRecyclerViewAdapter<Review, ReviewAdapto
             comment = itemView.findViewById(R.id.layout_comment);
             photo = itemView.findViewById(R.id.layout_review_photo);
             author = itemView.findViewById(R.id.author);
+            edit = itemView.findViewById(R.id.editReview);
         }
     }
 
     ReviewDisplay activity;
+    String currentUserUuid;
 
-    public ReviewAdaptor(ReviewDisplay activity, @NonNull OrderedRealmCollection<Review> data) {
+    public ReviewAdaptor(ReviewDisplay activity, String currentUserUuid, @NonNull OrderedRealmCollection<Review> data) {
         super(data, true);
         this.activity = activity;
+        this.currentUserUuid = currentUserUuid;
     }
 
     @NonNull
@@ -71,7 +78,22 @@ public class ReviewAdaptor extends RealmRecyclerViewAdapter<Review, ReviewAdapto
         holder.food.setRating(r.getFood());
         holder.value.setRating(r.getValue());
         holder.service.setRating(r.getService());
-        holder.author.setText(r.getAuthor().getName());
+
+        User authorUser = r.getAuthor();
+        holder.author.setText(authorUser != null ? authorUser.getName() : "Unknown");
+
+        boolean isOwner = authorUser != null && currentUserUuid != null && authorUser.getUuid().equals(currentUserUuid);
+
+        holder.edit.setVisibility(isOwner ? View.VISIBLE : View.GONE);
+
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity, ReviewEdit.class);
+                i.putExtra("REVIEW_UUID", r.getUuid());
+                activity.startActivity(i);
+            }
+        });
 
         File image = new File(
                 activity.getExternalCacheDir(),
