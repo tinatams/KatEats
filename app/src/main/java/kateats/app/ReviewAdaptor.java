@@ -90,7 +90,7 @@ public class ReviewAdaptor extends RealmRecyclerViewAdapter<Review, ReviewAdapto
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(activity, ReviewEdit.class);
-                i.putExtra("REVIEW_UUID", r.getUuid());
+                i.putExtra("reviewUuid", r.getUuid());
                 activity.startActivity(i);
             }
         });
