@@ -100,15 +100,13 @@
             android:visibility="gone"
             android:layout_marginBottom="16dp">
 
-            <EditText
-                android:id="@+id/etRegisterGmaps"
+            <Spinner
+                android:id="@+id/registerCuisine"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Google Maps Link"
-                android:inputType="textUri"
-                android:padding="12dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:background="@android:drawable/editbox_background"
-                android:layout_marginBottom="12dp"/>
+                android:padding="12dp" />
 
             <EditText
                 android:id="@+id/etRegisterDescription"

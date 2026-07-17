@@ -1,20 +1,19 @@
 package kateats.app;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -24,14 +23,12 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -44,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnSave, btnCancel;
     private ImageView imgRegisterProfile;
     private Realm realm;
+    private Spinner cuisineChoose;
     File getImageDir;
     File file;
 
@@ -73,6 +71,13 @@ public class RegisterActivity extends AppCompatActivity {
         btnCancel = findViewById(R.id.btnRegisterCancel);
         imgRegisterProfile = findViewById(R.id.imgRegisterProfile);
         imgRegisterProfile.setImageResource(R.mipmap.ic_launcher);
+        cuisineChoose = findViewById(R.id.registerCuisine);
+
+        String[] options = Restaurant.CUISINE_OPTIONS;
+        ArrayAdapter<String> cuisineAdapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, options);
+        cuisineAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cuisineChoose.setAdapter(cuisineAdapter);
 
 
         realm = Realm.getDefaultInstance();
@@ -118,7 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (isRestaurant) {
                 final String descInput = etRegDescription.getText().toString().trim();
 
-                registerRestaurant(usernameInput, passwordInput, descInput);
+                registerRestaurant(usernameInput, passwordInput, descInput, cuisineChoose.getSelectedItem().toString());
             } else {
                 registerRegularUser(usernameInput, passwordInput);
             }
@@ -144,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void registerRestaurant(String name, String password, String description) {
+    private void registerRestaurant(String name, String password, String description, String cuisine) {
         Restaurant existing = realm.where(Restaurant.class).equalTo("name", name).findFirst();
 
         if (existing == null) {
@@ -152,6 +157,7 @@ public class RegisterActivity extends AppCompatActivity {
             r.setName(name);
             r.setPassword(password);
             r.setDescription(description);
+            r.setCuisine(cuisine);
             realm.beginTransaction();
             realm.copyToRealmOrUpdate(r);
             realm.commitTransaction();
