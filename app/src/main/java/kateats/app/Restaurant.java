@@ -16,24 +16,18 @@ public class Restaurant extends RealmObject {
     private String password;
     private byte[] photo;
     private String gmaps;
-    private RealmList<String> menu = new RealmList<>();
+    private String menu;
     private float rating;
     public static String[] CUISINE_OPTIONS = {"All", "Italian", "Japanese", "Filipino", "Thai"};
-    private RealmList<String> cuisine = new RealmList<>();    private boolean liked;
+    private String cuisine;
+    private boolean liked;
 
-    // Updated to return and accept RealmList<String>
-    public RealmList<String> getCuisine() {
+    public String getCuisine() {
         return cuisine;
     }
 
-    public void setCuisine(RealmList<String> cuisine) {
+    public void setCuisine(String cuisine) {
         this.cuisine = cuisine;
-    }
-
-    // Modernized using Realm's built-in .contains() method
-    public boolean isCuisine(String c) {
-        if (cuisine == null) return false;
-        return cuisine.contains(c);
     }
 
     public float getRating() {
@@ -98,12 +92,11 @@ public class Restaurant extends RealmObject {
         this.gmaps = gmaps;
     }
 
-    // Updated to return and accept RealmList<String>
-    public RealmList<String> getMenu() {
+    public String getMenu() {
         return menu;
     }
 
-    public void setMenu(RealmList<String> menu) {
+    public void setMenu(String menu) {
         this.menu = menu;
     }
 }

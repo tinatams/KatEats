@@ -130,4 +130,11 @@ public class RestaurantList extends AppCompatActivity {
 
         adapter.updateData(filtered);
     }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!realm.isClosed()) {
+            realm.close();
+        }
+    }
 }

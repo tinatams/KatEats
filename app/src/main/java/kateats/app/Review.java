@@ -2,6 +2,7 @@ package kateats.app;
 
 import java.util.UUID;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -18,10 +19,10 @@ public class Review extends RealmObject {
     private float service;
     private String comment;
     private long createdAt;
-    private String[] cuisine;
+    private String cuisine;
 
 
-    public Review(String uuid, Restaurant restaurant, float overall, float ambiance, float food, float value, float service, String comment, long createdAt, String[] cuisine) {
+    public Review(String uuid, Restaurant restaurant, float overall, float ambiance, float food, float value, float service, String comment, long createdAt, String cuisine) {
         this.uuid = uuid;
         this.restaurant = restaurant;
         this.overall = overall;
@@ -107,11 +108,11 @@ public class Review extends RealmObject {
         this.createdAt = createdAt;
     }
 
-    public String[] getCuisine() {
+    public String getCuisine() {
         return cuisine;
     }
 
-    public void setCuisine(String[] cuisine) {
+    public void setCuisine(String cuisine) {
         this.cuisine = cuisine;
     }
 }

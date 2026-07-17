@@ -59,15 +59,7 @@ public class RestaurantView extends AppCompatActivity {
         restoName.setText(resto.getName());
         overallRating.setRating(resto.getRating());
         description.setText(resto.getDescription());
-        String menuString = "";
-
-        for (String m : resto.getMenu()){
-            menuString += m + '\n';
-        }
-        menu.setText(menuString);
-
-        //Add the other ratings here
-
+        menu.setText(resto.getMenu());
     }
 
     public void onDestroy(){
