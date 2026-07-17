@@ -1,7 +1,9 @@
 package kateats.app;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -37,6 +39,8 @@ import io.realm.RealmResults;
 public class ReviewWriting extends AppCompatActivity {
 
     String uuid;
+    String currentUserUuid;
+    User currentUser;
     AutoCompleteTextView restaurant;
     EditText comments;
     RatingBar overall;
@@ -51,6 +55,7 @@ public class ReviewWriting extends AppCompatActivity {
     Button submit;
     RealmResults<Restaurant> restaurantArrayList;
     ArrayList<String> names;
+    SharedPreferences sharedPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,10 @@ public class ReviewWriting extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         restaurantArrayList = realm.where(Restaurant.class).findAll();
+
+        sharedPrefs = getSharedPreferences("KatEatsPrefs", Context.MODE_PRIVATE);
+        currentUserUuid = sharedPrefs.getString("logged_user_uuid", null);
+        currentUser = realm.where(User.class).equalTo("uuid", currentUserUuid).findFirst();
 
         names = new ArrayList<>();
         for (Restaurant r : restaurantArrayList) {
@@ -112,6 +121,7 @@ public class ReviewWriting extends AppCompatActivity {
                         r.setUuid(uuid);
                         r.setRestaurant(chosenRestaurant);
                         r.setCuisine(chosenRestaurant.getCuisine());
+                        r.setAuthor(currentUser);
                         r.setOverall(overall.getRating());
                         r.setAmbiance(ambiance.getRating());
                         r.setFood(food.getRating());

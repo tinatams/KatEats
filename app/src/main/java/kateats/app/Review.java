@@ -11,7 +11,7 @@ public class Review extends RealmObject {
     @PrimaryKey
     private String uuid = UUID.randomUUID().toString();
     private Restaurant restaurant;
-    // private User user;
+    private User author;
     private float overall;
     private float ambiance;
     private float food;
@@ -22,7 +22,7 @@ public class Review extends RealmObject {
     private String cuisine;
 
 
-    public Review(String uuid, Restaurant restaurant, float overall, float ambiance, float food, float value, float service, String comment, long createdAt, String cuisine) {
+    public Review(String uuid, Restaurant restaurant, User author, float overall, float ambiance, float food, float value, float service, String comment, long createdAt, String cuisine) {
         this.uuid = uuid;
         this.restaurant = restaurant;
         this.overall = overall;
@@ -33,6 +33,7 @@ public class Review extends RealmObject {
         this.comment = comment;
         this.cuisine = cuisine;
         this.createdAt = createdAt;
+        this.author = author;
     }
 
     public Review(){}
@@ -114,5 +115,13 @@ public class Review extends RealmObject {
 
     public void setCuisine(String cuisine) {
         this.cuisine = cuisine;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
