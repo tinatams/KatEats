@@ -98,7 +98,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toEndOf="@+id/layout_review_photo"
         app:layout_constraintTop_toTopOf="@+id/layout_review_photo"
         app:layout_constraintVertical_bias="0.01" />
@@ -131,7 +131,7 @@
 
     <TextView
         android:id="@+id/layout_comment"
-        android:layout_width="193dp"
+        android:layout_width="180dp"
         android:layout_height="62dp"
         android:layout_marginStart="16dp"
         android:text="TextView"
