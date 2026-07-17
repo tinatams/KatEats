@@ -10,7 +10,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -28,9 +32,19 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        // Bind layout views
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        init();
+    }
+
+    private void init() {
         etUsername = findViewById(R.id.etLoginUsername);
         etPassword = findViewById(R.id.etLoginPassword);
         rgLoginType = findViewById(R.id.rgLoginType);
@@ -40,23 +54,19 @@ public class LoginActivity extends AppCompatActivity {
         btnGoToRegister = findViewById(R.id.btnGoToRegister);
         btnAdminPanel = findViewById(R.id.btnAdminPanel);
 
-        // Initialize Realm
         realm = Realm.getDefaultInstance();
         sharedPreferences = getSharedPreferences("KatEatsPrefs", Context.MODE_PRIVATE);
 
-        // Navigate to Register Screen
         btnGoToRegister.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
 
-        // Navigate to Admin Screen
         btnAdminPanel.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
             startActivity(intent);
         });
 
-        // Perform login verification
         btnLogin.setOnClickListener(v -> {
             String usernameInput = etUsername.getText().toString().trim();
             String passwordInput = etPassword.getText().toString().trim();
