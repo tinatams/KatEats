@@ -1,6 +1,7 @@
 package kateats.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,14 @@ public class RestaurantAdaptor extends RealmRecyclerViewAdapter<Restaurant, Rest
         holder.restaurantName.setText(resto.getName());
         holder.rating.setRating(resto.getRating());
         holder.description.setText(resto.getDescription());
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, RestaurantView.class);
+                i.putExtra("uuid", resto.getUuid());
+                context.startActivity(i);
+            }
+        });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

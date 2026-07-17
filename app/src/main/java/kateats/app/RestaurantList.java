@@ -137,4 +137,6 @@ public class RestaurantList extends AppCompatActivity {
             realm.close();
         }
     }
+
+
 }
