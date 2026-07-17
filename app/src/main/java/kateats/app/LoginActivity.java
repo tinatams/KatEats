@@ -1,5 +1,6 @@
 package kateats.app;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -34,14 +39,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        init();
+        checkPermissions();
     }
 
     private void init() {
@@ -148,5 +152,39 @@ public class LoginActivity extends AppCompatActivity {
         if (realm != null) {
             realm.close();
         }
+    }
+
+    public void checkPermissions()
+    {
+        Dexter.withContext(this)
+                .withPermissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA
+
+                )
+
+                .withListener(new BaseMultiplePermissionsListener()
+                {
+                    public void onPermissionsChecked(MultiplePermissionsReport report)
+                    {
+                        if (report.areAllPermissionsGranted())
+                        {
+                            // all permissions accepted proceed
+                            init();
+                        }
+                        else
+                        {
+                            // notify about permissions
+                            toastRequirePermissions();
+                        }
+                    }
+                })
+                .check();
+    }
+
+    public void toastRequirePermissions() {
+        Toast.makeText(this, "You must provide permissions for app to run", Toast.LENGTH_LONG).show();
+        finish();
     }
 }
