@@ -18,7 +18,7 @@ public class Restaurant extends RealmObject {
     private String gmaps;
     private String menu;
     private float rating;
-    public static String[] CUISINE_OPTIONS = {"All", "Italian", "Japanese", "Filipino", "Thai"};
+    public static String[] CUISINE_OPTIONS = {"All", "Italian", "Japanese", "Filipino", "Thai", "American"};
     private String cuisine;
     private boolean liked;
 

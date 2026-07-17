@@ -21,39 +21,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.046" />
 
-    <EditText
-        android:id="@+id/searchLiked"
-        android:layout_width="229dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="Search Bar"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintHorizontal_bias="0.195"
-        app:layout_constraintStart_toStartOf="@+id/likedRestoViewer"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/likedRestoViewer"
         android:layout_width="306dp"
         android:layout_height="451dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchLiked" />
-
-    <ImageButton
-        android:id="@+id/submitSearchLike"
-        style="@android:style/Widget.Holo.ImageButton"
-        android:layout_width="57dp"
-        android:layout_height="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/likedRestoViewer"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/searchLiked"
-        app:layout_constraintTop_toTopOf="@+id/searchLiked"
-        app:srcCompat="@android:drawable/ic_menu_search" />
+        tools:layout_editor_absoluteY="141dp" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="409dp"
@@ -144,5 +119,14 @@
             </TableLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <SearchView
+        android:id="@+id/likedRestoSearch"
+        android:layout_width="307dp"
+        android:layout_height="44dp"
+        app:layout_constraintBottom_toTopOf="@+id/likedRestoViewer"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
