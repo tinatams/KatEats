@@ -69,6 +69,7 @@ public class ReviewWriting extends AppCompatActivity {
     public void init() {
         uuid = UUID.randomUUID().toString();
         restaurant = findViewById(R.id.reviewRestaurant);
+        realm = Realm.getDefaultInstance();
 
         restaurantArrayList = realm.where(Restaurant.class).findAll();
 
@@ -93,7 +94,6 @@ public class ReviewWriting extends AppCompatActivity {
         value = findViewById(R.id.reviewValue);
         service = findViewById(R.id.reviewService);
         submit = findViewById(R.id.reviewSubmit);
-        realm = Realm.getDefaultInstance();
         photo.setImageResource(R.mipmap.ic_launcher);
 
         submit.setOnClickListener(new View.OnClickListener() {
