@@ -9,20 +9,22 @@
 
     <Button
         android:id="@+id/reviewButton"
-        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:backgroundTint="#3F51B5"
+        app:cornerRadius="0dp"
         android:text="Go to Reviews"
         app:layout_constraintBottom_toBottomOf="@+id/cantDecide"
         app:layout_constraintStart_toStartOf="@+id/restaurantList" />
 
     <Button
         android:id="@+id/cantDecide"
-        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Can't Decide"
+        app:backgroundTint="#3F51B5"
+        app:cornerRadius="0dp"
+        android:text="Can't Decide?"
         app:layout_constraintEnd_toEndOf="@+id/restaurantList"
         app:layout_constraintTop_toBottomOf="@+id/restaurantList" />
 
@@ -48,7 +50,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/restaurantList"
-        android:layout_width="371dp"
+        android:layout_width="380dp"
         android:layout_height="399dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="10dp"
-                android:stretchColumns="0">
+                android:stretchColumns="1">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -125,7 +127,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <CheckBox
                         android:id="@+id/alphabetical"
