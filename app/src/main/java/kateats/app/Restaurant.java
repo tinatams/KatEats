@@ -15,10 +15,10 @@ public class Restaurant extends RealmObject {
     private String description;
     private String password;
     private byte[] photo;
-    private String gmaps;
     private String menu;
     private float rating;
-    public static String[] CUISINE_OPTIONS = {"All", "Italian", "Japanese", "Filipino", "Thai", "American"};
+    public static String[] CUISINE_OPTIONS = {"Any", "American", "Chinese", "Filipino", "Indian", "Italian", "Japanese",
+    "Korean", "Mexican", "Thai"};
     private String cuisine;
     private boolean liked;
 
@@ -83,15 +83,6 @@ public class Restaurant extends RealmObject {
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
-
-    public String getGmaps() {
-        return gmaps;
-    }
-
-    public void setGmaps(String gmaps) {
-        this.gmaps = gmaps;
-    }
-
     public String getMenu() {
         return menu;
     }

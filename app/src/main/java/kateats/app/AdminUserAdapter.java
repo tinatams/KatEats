@@ -94,7 +94,7 @@ public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAd
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent i = new Intent(activity, EditUser.class);
+                //Intent i = new Intent(activity, UserEdit.class);
                 //i.putExtra("userID", user.getUuid());
                 //activity.startActivity(i);
             }
