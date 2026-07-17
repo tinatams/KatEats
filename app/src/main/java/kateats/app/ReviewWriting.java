@@ -103,6 +103,7 @@ public class ReviewWriting extends AppCompatActivity {
         value = findViewById(R.id.reviewValue);
         service = findViewById(R.id.reviewService);
         submit = findViewById(R.id.reviewSubmit);
+        photo = findViewById(R.id.reviewPhoto);
         photo.setImageResource(R.mipmap.ic_launcher);
 
         submit.setOnClickListener(new View.OnClickListener() {
