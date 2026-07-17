@@ -1,5 +1,6 @@
 package kateats.app;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -94,9 +95,9 @@ public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAd
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent i = new Intent(activity, EditUser.class);
-                //i.putExtra("userID", user.getUuid());
-                //activity.startActivity(i);
+                Intent i = new Intent(activity, UserEdit.class);
+                i.putExtra("userUuid", user.getUuid());
+                activity.startActivity(i);
             }
         });
 
