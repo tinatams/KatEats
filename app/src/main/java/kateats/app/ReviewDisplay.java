@@ -37,7 +37,7 @@ public class ReviewDisplay extends AppCompatActivity {
     RatingBar filterRating;
     Spinner filterCuisine;
     CheckBox filterEarliest;
-    ArrayList<String> restaurantNames;
+    ArrayList<String> restaurantNames = new ArrayList<>();
     RealmResults<Review> filtered;
     ReviewAdaptor adapter;
     SharedPreferences sharedPrefs;
