@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
 
     <TextView
         android:id="@+id/RestaurantNamePlaceholder"
@@ -12,6 +13,7 @@
         android:text="Restaurant Name"
         android:textSize="34sp"
         android:textStyle="bold"
+        android:textColor="#FF5722"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -24,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:rating="3"
         app:layout_constraintEnd_toEndOf="@+id/RestaurantNamePlaceholder"
         app:layout_constraintStart_toStartOf="@+id/RestaurantNamePlaceholder"
         app:layout_constraintTop_toBottomOf="@+id/RestaurantNamePlaceholder" />
@@ -32,7 +35,7 @@
         android:id="@+id/restaurantPlaceholder"
         android:layout_width="274dp"
         android:layout_height="335dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="@+id/ratingPlaceholder"
         app:layout_constraintStart_toStartOf="@+id/ratingPlaceholder"
         app:layout_constraintTop_toBottomOf="@+id/ratingPlaceholder"
@@ -43,9 +46,22 @@
         android:layout_width="320dp"
         android:layout_height="133dp"
         android:layout_marginTop="16dp"
+        android:textColor="#777777"
         android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam."
         app:layout_constraintEnd_toEndOf="@+id/restaurantPlaceholder"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="@+id/restaurantPlaceholder"
         app:layout_constraintTop_toBottomOf="@+id/restaurantPlaceholder" />
+
+    <TextView
+        android:id="@+id/layout_cuisine_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="16sp"
+        android:textColor="#777777"
+        app:layout_constraintBottom_toTopOf="@+id/restaurantPlaceholder"
+        app:layout_constraintEnd_toEndOf="@+id/ratingPlaceholder"
+        app:layout_constraintStart_toStartOf="@+id/ratingPlaceholder"
+        app:layout_constraintTop_toBottomOf="@+id/ratingPlaceholder" />
 </androidx.constraintlayout.widget.ConstraintLayout>

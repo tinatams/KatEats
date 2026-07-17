@@ -42,22 +42,23 @@ public class RestaurantAdaptor extends RealmRecyclerViewAdapter<Restaurant, Rest
             return;
         }
 
-
+        holder.cuisine.setText(resto.getCuisine());
         holder.restaurantName.setText(resto.getName());
         holder.rating.setRating(resto.getRating());
+        holder.rating.setIsIndicator(true);
         holder.description.setText(resto.getDescription());
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, RestaurantView.class);
-                i.putExtra("uuid", resto.getUuid());
+                i.putExtra("restoID", resto.getUuid());
                 context.startActivity(i);
             }
         });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView restaurantName;
+        TextView restaurantName, cuisine;
         RatingBar rating;
         ImageView image;
         TextView description;
@@ -65,6 +66,7 @@ public class RestaurantAdaptor extends RealmRecyclerViewAdapter<Restaurant, Rest
         public ViewHolder(@NonNull View itemView){
             super(itemView);
 
+            cuisine = itemView.findViewById(R.id.layout_cuisine_view);
             restaurantName = itemView.findViewById(R.id.RestaurantNamePlaceholder);
             rating = itemView.findViewById(R.id.ratingPlaceholder);
             image = itemView.findViewById(R.id.restaurantPlaceholder);

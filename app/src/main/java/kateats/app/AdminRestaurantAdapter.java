@@ -21,6 +21,7 @@ public class AdminRestaurantAdapter extends RealmRecyclerViewAdapter<Restaurant,
     private AdminActivity activity;
     private OnRestaurantActionListener listener;
 
+
     public interface OnRestaurantActionListener {
         void onDelete(Restaurant restaurant);
         void onEdit(Restaurant restaurant);
