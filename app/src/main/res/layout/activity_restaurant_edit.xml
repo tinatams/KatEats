@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RestaurantEdit">
+
+    <TextView
+        android:id="@+id/placeRestoName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RestoName"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <ImageView
+        android:id="@+id/imageRestView"
+        android:layout_width="296dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/placeRestoName"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/placeRestoName"
+        app:layout_constraintTop_toBottomOf="@+id/placeRestoName"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <EditText
+        android:id="@+id/restoNameEditor"
+        android:layout_width="289dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Restaurant Name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/imageRestView"
+        app:layout_constraintStart_toStartOf="@+id/imageRestView"
+        app:layout_constraintTop_toBottomOf="@+id/imageRestView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cuisine:"
+        app:layout_constraintBottom_toTopOf="@+id/cuisinePicker"
+        app:layout_constraintStart_toStartOf="@+id/passConEdit"
+        app:layout_constraintTop_toBottomOf="@+id/passConEdit" />
+
+    <Spinner
+        android:id="@+id/cuisinePicker"
+        android:layout_width="287dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="160dp"
+        app:layout_constraintEnd_toEndOf="@+id/restoNameEditor"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/restoNameEditor"
+        app:layout_constraintTop_toBottomOf="@+id/restoNameEditor" />
+
+    <EditText
+        android:id="@+id/editMenu"
+        android:layout_width="287dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Menu"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/cuisinePicker"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cuisinePicker"
+        app:layout_constraintTop_toBottomOf="@+id/cuisinePicker" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="@+id/editMenu"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editMenu" />
+
+    <EditText
+        android:id="@+id/passEdit"
+        android:layout_width="289dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/restoNameEditor"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/restoNameEditor"
+        app:layout_constraintTop_toBottomOf="@+id/restoNameEditor" />
+
+    <EditText
+        android:id="@+id/passConEdit"
+        android:layout_width="288dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Password Confirm"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/passEdit"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/passEdit"
+        app:layout_constraintTop_toBottomOf="@+id/passEdit" />
+
+    <EditText
+        android:id="@+id/editDesc"
+        android:layout_width="286dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/editMenu"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editMenu"
+        app:layout_constraintTop_toBottomOf="@+id/editMenu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
