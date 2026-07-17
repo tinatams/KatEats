@@ -133,7 +133,7 @@ public class LikedRestaurants extends AppCompatActivity {
                 .greaterThanOrEqualTo("rating", rating)
                 .equalTo("liked", true);
 
-        if (!cuisine.equals("All")) {
+        if (!cuisine.equals("Any")) {
             query = query.equalTo("cuisine", cuisine);
         }
 

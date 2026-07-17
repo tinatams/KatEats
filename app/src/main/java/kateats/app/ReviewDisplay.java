@@ -133,7 +133,7 @@ public class ReviewDisplay extends AppCompatActivity {
         RealmQuery<Review> query = realm.where(Review.class).greaterThanOrEqualTo("overall", filterRating.getRating());
 
         String cuisine = filterCuisine.getSelectedItem().toString();
-        if (!cuisine.equals("All")) {
+        if (!cuisine.equals("Any")) {
             query = query.equalTo("cuisine", cuisine);
         }
 

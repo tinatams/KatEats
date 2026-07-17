@@ -131,7 +131,7 @@ public class RestaurantList extends AppCompatActivity {
                 .greaterThanOrEqualTo("rating", filterRating.getRating());
 
         String cuisine = filterCuisine.getSelectedItem().toString();
-        if (!cuisine.equals("All")) {
+        if (!cuisine.equals("Any")) {
             query = query.equalTo("cuisine", cuisine);
         }
 
