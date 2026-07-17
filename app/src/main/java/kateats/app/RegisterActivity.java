@@ -20,7 +20,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -28,21 +36,22 @@ import io.realm.RealmResults;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etRegUsername, etRegPassword, etRegConfirmPassword;
-    private EditText etRegGmaps, etRegDescription;
+    private String uuid;
+    private EditText etRegDescription;
     private RadioGroup rgUserType;
     private RadioButton rbUser, rbRestaurant;
     private LinearLayout layoutRestaurantFields;
     private Button btnSave, btnCancel;
     private ImageView imgRegisterProfile;
-
     private Realm realm;
-    private byte[] rawImageBytes = null; // Store image as byte[]
+    File getImageDir;
+    File file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -52,9 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Bind layouts
         etRegUsername = findViewById(R.id.etRegisterUsername);
+        uuid = UUID.randomUUID().toString();
         etRegPassword = findViewById(R.id.etRegisterPassword);
         etRegConfirmPassword = findViewById(R.id.etRegisterConfirmPassword);
-        etRegGmaps = findViewById(R.id.etRegisterGmaps);
         etRegDescription = findViewById(R.id.etRegisterDescription);
         rgUserType = findViewById(R.id.rgUserType);
         rbUser = findViewById(R.id.rbUser);
@@ -63,6 +72,8 @@ public class RegisterActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnRegisterSave);
         btnCancel = findViewById(R.id.btnRegisterCancel);
         imgRegisterProfile = findViewById(R.id.imgRegisterProfile);
+        imgRegisterProfile.setImageResource(R.mipmap.ic_launcher);
+
 
         realm = Realm.getDefaultInstance();
 
@@ -76,10 +87,11 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         // Click profile picture to trigger photo taking activity
-        imgRegisterProfile.setOnClickListener(v -> {
-            // Reusing your previous image capture flow
-            Intent intent = new Intent(RegisterActivity.this, ImageActivity.class);
-            startActivityForResult(intent, 100);
+        imgRegisterProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                takePhoto();
+            }
         });
 
         btnCancel.setOnClickListener(v -> finish());
@@ -104,10 +116,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             if (isRestaurant) {
-                final String gmapsInput = etRegGmaps.getText().toString().trim();
                 final String descInput = etRegDescription.getText().toString().trim();
 
-                registerRestaurant(usernameInput, passwordInput, gmapsInput, descInput);
+                registerRestaurant(usernameInput, passwordInput, descInput);
             } else {
                 registerRegularUser(usernameInput, passwordInput);
             }
@@ -115,79 +126,39 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerRegularUser(String name, String password) {
-        realm.executeTransactionAsync(r -> {
-            // Check if User already exists
-            RealmResults<User> existing = r.where(User.class)
-                    .equalTo("name", name)
-                    .findAll();
+        User existing = realm.where(User.class).equalTo("name", name).findFirst();
 
-            if (existing.size() > 0) {
-                throw new IllegalArgumentException("User already exists");
-            }
-
-            User newUser = r.createObject(User.class, java.util.UUID.randomUUID().toString());
-            newUser.setName(name);
-            newUser.setPassword(password);
-            if (rawImageBytes != null) {
-                newUser.setPhoto(rawImageBytes);
-            }
-        }, () -> {
+        if (existing == null) {
+            User u = new User();
+            u.setUuid(uuid);
+            u.setName(name);
+            u.setPassword(password);
+            realm.beginTransaction();
+            realm.copyToRealmOrUpdate(u);
+            realm.commitTransaction();
             Toast.makeText(RegisterActivity.this, "Regular User registered successfully!", Toast.LENGTH_SHORT).show();
             finish();
-        }, error -> {
-            if (error instanceof IllegalArgumentException || error.getCause() instanceof IllegalArgumentException) {
-                Toast.makeText(RegisterActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(RegisterActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        } else {
+            Toast.makeText(RegisterActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
-    private void registerRestaurant(String name, String password, String gmaps, String description) {
-        realm.executeTransactionAsync(r -> {
-            // Check if Restaurant already exists
-            RealmResults<Restaurant> existing = r.where(Restaurant.class)
-                    .equalTo("name", name)
-                    .findAll();
+    private void registerRestaurant(String name, String password, String description) {
+        Restaurant existing = realm.where(Restaurant.class).equalTo("name", name).findFirst();
 
-            if (existing.size() > 0) {
-                throw new IllegalArgumentException("Restaurant already exists");
-            }
-
-            Restaurant newRestaurant = r.createObject(Restaurant.class, java.util.UUID.randomUUID().toString());
-            newRestaurant.setName(name);
-            newRestaurant.setPassword(password);
-            newRestaurant.setGmaps(gmaps);
-            newRestaurant.setDescription(description);
-            if (rawImageBytes != null) {
-                newRestaurant.setPhoto(rawImageBytes);
-            }
-        }, () -> {
+        if (existing == null) {
+            Restaurant r = new Restaurant();
+            r.setName(name);
+            r.setPassword(password);
+            r.setDescription(description);
+            realm.beginTransaction();
+            realm.copyToRealmOrUpdate(r);
+            realm.commitTransaction();
             Toast.makeText(RegisterActivity.this, "Restaurant registered successfully!", Toast.LENGTH_SHORT).show();
             finish();
-        }, error -> {
-            if (error instanceof IllegalArgumentException || error.getCause() instanceof IllegalArgumentException) {
-                Toast.makeText(RegisterActivity.this, "Restaurant already exists", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(RegisterActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 100 && resultCode == ImageActivity.RESULT_CODE_IMAGE_TAKEN && data != null) {
-            byte[] jpeg = data.getByteArrayExtra("rawJpeg");
-            if (jpeg != null) {
-                this.rawImageBytes = jpeg;
-
-                // Display the photo preview
-                Bitmap bitmap = BitmapFactory.decodeByteArray(jpeg, 0, jpeg.length);
-                imgRegisterProfile.setImageBitmap(bitmap);
-                Toast.makeText(this, "Profile picture attached!", Toast.LENGTH_SHORT).show();
-            }
+        } else {
+            Toast.makeText(RegisterActivity.this, "Restaurant already exists", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -196,6 +167,69 @@ public class RegisterActivity extends AppCompatActivity {
         super.onDestroy();
         if (realm != null) {
             realm.close();
+        }
+    }
+
+    public static int REQUEST_CODE_IMAGE_SCREEN = 0;
+
+    public void takePhoto()
+    {
+        Intent i = new Intent(this, ImageActivity.class);
+        startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
+    }
+
+    private File saveFile(byte[] jpeg, String filename) throws IOException
+    {
+        // this is the root directory for the images
+        File getImageDir = getExternalCacheDir();
+
+        // just a sample, normally you have a diff image name each time
+        File savedImage = new File(getImageDir, filename);
+
+
+        FileOutputStream fos = new FileOutputStream(savedImage);
+        fos.write(jpeg);
+        fos.close();
+        return savedImage;
+    }
+
+    public void onActivityResult(int requestCode, int responseCode, Intent data)
+    {
+        super.onActivityResult(requestCode, responseCode, data);
+
+        if (requestCode==REQUEST_CODE_IMAGE_SCREEN)
+        {
+            if (responseCode==ImageActivity.RESULT_CODE_IMAGE_TAKEN)
+            {
+                // receieve the raw JPEG data from ImageActivity
+                // this can be saved to a file or save elsewhere like Realm or online
+                byte[] jpeg = data.getByteArrayExtra("rawJpeg");
+
+                try {
+
+                    // save the photo
+                    File savedImage = saveFile(jpeg, uuid + ".jpeg");
+
+                    // load photo file for instant updating
+                    getImageDir = getExternalCacheDir();
+                    file = new File(getImageDir, uuid + ".jpeg");
+                    if (file.exists()) {
+                        Picasso.get()
+                                .load(file)
+                                .networkPolicy(NetworkPolicy.NO_CACHE)
+                                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .into(imgRegisterProfile);
+                    }
+                    else {
+                        imgRegisterProfile.setImageResource(R.mipmap.ic_launcher);
+                    }
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
         }
     }
 }
