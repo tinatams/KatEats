@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReviewEdit">
+
+    <Button
+        android:id="@+id/editReviewSubmit"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Submit Review"
+        app:layout_constraintEnd_toEndOf="@+id/editReviewComments"
+        app:layout_constraintTop_toBottomOf="@+id/editReviewComments" />
+
+    <TextView
+        android:id="@+id/editReviewRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Restaurant Name"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.112"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <TextView
+        android:id="@+id/ambianceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ambiance:"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/overallText"
+        app:layout_constraintTop_toBottomOf="@+id/overallText" />
+
+    <TextView
+        android:id="@+id/serviceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Service:"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/valueText"
+        app:layout_constraintTop_toBottomOf="@+id/valueText" />
+
+    <TextView
+        android:id="@+id/valueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Value:"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/foodText"
+        app:layout_constraintTop_toBottomOf="@+id/foodText" />
+
+    <TextView
+        android:id="@+id/overallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Overall:"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editReviewPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/editReviewPhoto" />
+
+    <TextView
+        android:id="@+id/foodText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Food &amp; Drink:"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/ambianceText"
+        app:layout_constraintTop_toBottomOf="@+id/ambianceText" />
+
+    <ImageView
+        android:id="@+id/editReviewPhoto"
+        android:layout_width="369dp"
+        android:layout_height="222dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editReviewRestaurant"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <RatingBar
+        android:id="@+id/editReviewOverall"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="false"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.854"
+        app:layout_constraintStart_toEndOf="@+id/overallText"
+        app:layout_constraintTop_toTopOf="@+id/overallText" />
+
+    <RatingBar
+        android:id="@+id/editReviewService"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="false"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintEnd_toEndOf="@+id/editReviewValue"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editReviewValue"
+        app:layout_constraintTop_toTopOf="@+id/serviceText" />
+
+    <RatingBar
+        android:id="@+id/editReviewValue"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="false"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintEnd_toEndOf="@+id/editReviewFood"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editReviewFood"
+        app:layout_constraintTop_toTopOf="@+id/valueText" />
+
+    <RatingBar
+        android:id="@+id/editReviewAmbiance"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="false"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintEnd_toEndOf="@+id/editReviewOverall"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editReviewOverall"
+        app:layout_constraintTop_toTopOf="@+id/ambianceText" />
+
+    <RatingBar
+        android:id="@+id/editReviewFood"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="false"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintEnd_toEndOf="@+id/editReviewAmbiance"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editReviewAmbiance"
+        app:layout_constraintTop_toTopOf="@+id/foodText" />
+
+    <EditText
+        android:id="@+id/editReviewComments"
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="12dp"
+        android:hint="General Comments"
+        android:maxLength="255"
+        android:maxLines="5"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editReviewService" />
+</androidx.constraintlayout.widget.ConstraintLayout>
