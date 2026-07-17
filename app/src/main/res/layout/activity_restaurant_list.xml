@@ -8,14 +8,22 @@
     tools:context=".RestaurantList">
 
     <Button
+        android:id="@+id/reviewButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Reviews"
+        app:layout_constraintBottom_toBottomOf="@+id/cantDecide"
+        app:layout_constraintStart_toStartOf="@+id/restaurantList" />
+
+    <Button
         android:id="@+id/cantDecide"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Can't Decide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/restaurantList"
         app:layout_constraintTop_toBottomOf="@+id/restaurantList" />
 
     <TextView

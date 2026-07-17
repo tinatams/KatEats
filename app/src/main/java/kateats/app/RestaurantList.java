@@ -36,6 +36,7 @@ public class RestaurantList extends AppCompatActivity {
     RatingBar filterRating;
     Spinner filterCuisine;
     CheckBox filterAlphabetical;
+    Button reviewButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class RestaurantList extends AppCompatActivity {
         filterRating = findViewById(R.id.filterRating);
         filterAlphabetical = findViewById(R.id.alphabetical);
         filterCuisine = findViewById(R.id.filterCuisine);
+        reviewButton = findViewById(R.id.reviewButton);
 
         String[] options = Restaurant.CUISINE_OPTIONS;
 
@@ -92,6 +94,13 @@ public class RestaurantList extends AppCompatActivity {
             }
         });
 
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                moveToReviewDisplay();
+            }
+        });
+
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -109,6 +118,11 @@ public class RestaurantList extends AppCompatActivity {
 
     public void moveToTinderSwipe(){
         Intent i = new Intent(this, TinderSwipe.class);
+        startActivity(i);
+    }
+
+    public void moveToReviewDisplay(){
+        Intent i = new Intent(this, ReviewDisplay.class);
         startActivity(i);
     }
 
