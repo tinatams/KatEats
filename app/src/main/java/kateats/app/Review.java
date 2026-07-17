@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
 public class Review extends RealmObject {
 
     @PrimaryKey
-    private String uuid = UUID.randomUUID().toString();
+    private String uuid;
     private Restaurant restaurant;
     private User author;
     private float overall;
