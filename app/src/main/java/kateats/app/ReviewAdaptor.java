@@ -29,6 +29,7 @@ public class ReviewAdaptor extends RealmRecyclerViewAdapter<Review, ReviewAdapto
         RatingBar service;
         TextView comment;
         ImageView photo;
+        TextView author;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -40,6 +41,7 @@ public class ReviewAdaptor extends RealmRecyclerViewAdapter<Review, ReviewAdapto
             service = itemView.findViewById(R.id.layout_service_score);
             comment = itemView.findViewById(R.id.layout_comment);
             photo = itemView.findViewById(R.id.layout_review_photo);
+            author = itemView.findViewById(R.id.author);
         }
     }
 
@@ -69,6 +71,7 @@ public class ReviewAdaptor extends RealmRecyclerViewAdapter<Review, ReviewAdapto
         holder.food.setRating(r.getFood());
         holder.value.setRating(r.getValue());
         holder.service.setRating(r.getService());
+        holder.author.setText(r.getAuthor().getName());
 
         File image = new File(
                 activity.getExternalCacheDir(),
