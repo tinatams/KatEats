@@ -6,10 +6,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.RatingBar;
+import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,19 +17,26 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class LikedRestaurants extends AppCompatActivity {
+    SearchView searchBar;
+    ViewPager2 restoViewer;
     Realm realm;
-    TextView searchBar;
-    ImageButton submitSearch;
+
+    RealmResults<Restaurant> restoSet;
+    RestaurantAdaptor adaptor;
+    RealmResults<Restaurant> filtered;
+
+
     Button submitFilters;
     RatingBar filterRating;
     Spinner filterCuisine;
     CheckBox filterAlphabetical;
-    ViewPager2 restoViewer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,39 +53,31 @@ public class LikedRestaurants extends AppCompatActivity {
 
     }
 
-    RealmResults<Restaurant> restoSet;
     private void init(){
-        searchBar = findViewById(R.id.searchLiked);
-        submitSearch = findViewById(R.id.submitSearchLike);
+        searchBar = findViewById(R.id.likedRestoSearch);
+        restoViewer = findViewById(R.id.likedRestoViewer);
+
         submitFilters = findViewById(R.id.submitLikeFilters);
         filterRating = findViewById(R.id.filterLikedRating);
         filterAlphabetical = findViewById(R.id.alphabeticalLiked);
-        restoViewer = findViewById(R.id.likedRestoViewer);
 
         filterCuisine = findViewById(R.id.filterLikedCuisine);
         String[] options = Restaurant.CUISINE_OPTIONS;
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        ArrayAdapter<String> cuisine_options = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
                 options
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        filterCuisine.setAdapter(adapter);
+        cuisine_options.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterCuisine.setAdapter(cuisine_options);
 
-        //picker can have onNothingSelected and onItemSelected Listeners
-
-        submitSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchResto();
-            }
-        });
 
         submitFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterResto();
+                refreshList();
+                //filterResto();
             }
         });
 
@@ -96,16 +94,28 @@ public class LikedRestaurants extends AppCompatActivity {
 
         //INSTANTIATE restoviewer
         restoSet = realm.where(Restaurant.class).equalTo("liked", true).findAll();
-        RestaurantAdaptor adaptor = new RestaurantAdaptor(this, restoSet);
+        adaptor = new RestaurantAdaptor(this, restoSet);
         restoViewer.setAdapter(adaptor);
 
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                refreshList();
+                return true;
+            }
 
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                refreshList();
+                return true;
+            }
+        });
     }
 
     public void selectResto(){
         int position = restoViewer.getCurrentItem();
 
-        Intent i = new Intent(this, LikedRestaurants.class);
+        Intent i = new Intent(this, Restaurant.class);
         String restoUUID = restoSet.get(position).getUuid();
 
         i.putExtra("restoID", restoUUID);
@@ -113,37 +123,28 @@ public class LikedRestaurants extends AppCompatActivity {
         finish();
     }
 
-    public void searchResto(){
-        String searchThing = searchBar.getText().toString();
-        restoSet = realm.where(Restaurant.class).beginsWith("name",searchThing).findAll();
-        RestaurantAdaptor adaptor = new RestaurantAdaptor(this, restoSet);
-        restoViewer.setAdapter(adaptor);
-    }
-
-    public void filterResto(){
-        String searchThing = searchBar.getText().toString();
+    public void refreshList(){
         float rating = filterRating.getRating();
         String cuisine =  filterCuisine.getSelectedItem().toString();
         boolean alpha = filterAlphabetical.isChecked();
 
         RealmQuery<Restaurant> query = realm
                 .where(Restaurant.class)
-                .beginsWith("name", searchThing)
-                .greaterThanOrEqualTo("rating", rating);
+                .greaterThanOrEqualTo("rating", rating)
+                .equalTo("liked", true);
 
         if (!cuisine.equals("All")) {
             query = query.equalTo("cuisine", cuisine);
         }
 
-        if (alpha) {
-            restoSet = query.sort("name").findAll();
-        } else {
-            restoSet = query.findAll();
+        String search = searchBar.getQuery().toString();
+        if (search != null && !search.trim().isEmpty()) {
+            query = query.contains("name", search, Case.INSENSITIVE);
         }
 
+        filtered = filterAlphabetical.isChecked() ? query.sort("name").findAll() : query.findAll();
 
-        RestaurantAdaptor adaptor = new RestaurantAdaptor(this, restoSet);
-        restoViewer.setAdapter(adaptor);
+        adaptor.updateData(filtered);
     }
 
     public void onDestroy(){

@@ -32,7 +32,7 @@
         android:id="@+id/restaurantPlaceholder"
         android:layout_width="274dp"
         android:layout_height="335dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="@+id/ratingPlaceholder"
         app:layout_constraintStart_toStartOf="@+id/ratingPlaceholder"
         app:layout_constraintTop_toBottomOf="@+id/ratingPlaceholder"
@@ -48,4 +48,15 @@
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="@+id/restaurantPlaceholder"
         app:layout_constraintTop_toBottomOf="@+id/restaurantPlaceholder" />
+
+    <TextView
+        android:id="@+id/layout_cuisine_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/restaurantPlaceholder"
+        app:layout_constraintEnd_toEndOf="@+id/ratingPlaceholder"
+        app:layout_constraintStart_toStartOf="@+id/ratingPlaceholder"
+        app:layout_constraintTop_toBottomOf="@+id/ratingPlaceholder" />
 </androidx.constraintlayout.widget.ConstraintLayout>
