@@ -16,6 +16,7 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="#FF5722"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -48,6 +49,7 @@
         android:layout_width="357dp"
         android:layout_height="113dp"
         android:layout_marginTop="28dp"
+        android:textColor="#777777"
         android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam."
         app:layout_constraintEnd_toEndOf="@+id/imageTinder"
         app:layout_constraintHorizontal_bias="0.461"
@@ -61,6 +63,7 @@
         android:text="KaTinder"
         android:textSize="34sp"
         android:textStyle="bold"
+        android:textColor="#3F51B5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -14,6 +14,7 @@
         android:text="RestoName"
         android:textSize="34sp"
         android:textStyle="bold"
+        android:textColor="#FF5722"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -49,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cuisine:"
+        android:textColor="#777777"
         app:layout_constraintBottom_toTopOf="@+id/cuisinePicker"
         app:layout_constraintStart_toStartOf="@+id/passConEdit"
         app:layout_constraintTop_toBottomOf="@+id/passConEdit" />
@@ -83,6 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
         android:text="Save"
+        android:backgroundTint="#3F51B5"
         app:layout_constraintEnd_toEndOf="@+id/editMenu"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
