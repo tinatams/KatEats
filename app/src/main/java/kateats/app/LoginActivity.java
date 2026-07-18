@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         btnAdminPanel = findViewById(R.id.btnAdminPanel);
 
         realm = Realm.getDefaultInstance();
-        sharedPreferences = getSharedPreferences("KatEatsPrefs", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("KatEatsPrefs", 0);
 
         btnGoToRegister.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);

@@ -131,7 +131,6 @@ public class ReviewWriting extends AppCompatActivity {
                         r.setComment(comments.getText().toString());
                         r.setCreatedAt(System.currentTimeMillis());
 
-
                         realm.beginTransaction();
 
                         realm.copyToRealmOrUpdate(r);
@@ -162,8 +161,7 @@ public class ReviewWriting extends AppCompatActivity {
     }
 
     protected void goToReviewDisplay(){
-        Intent i = new Intent(this, ReviewDisplay.class);
-        startActivity(i);
+        finish();
     }
 
 

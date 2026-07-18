@@ -1,17 +1,21 @@
 package kateats.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.prefs.PreferenceChangeEvent;
 
 import io.realm.Realm;
 
@@ -85,14 +89,34 @@ public class RestaurantView extends AppCompatActivity {
         description.setText(resto.getDescription());
         menu.setText(resto.getMenu());
         cuisine.setText(resto.getCuisine());
+
+        realm.beginTransaction();
+        Number foodavg = realm.where(Review.class).equalTo("restaurant.uuid", resto.getUuid()).average("food");
+        Number ambianceavg = realm.where(Review.class).equalTo("restaurant.uuid", resto.getUuid()).average("ambiance");
+        Number serviceavg = realm.where(Review.class).equalTo("restaurant.uuid", resto.getUuid()).average("service");
+        Number valueavg = realm.where(Review.class).equalTo("restaurant.uuid", resto.getUuid()).average("value");
+        foodRating.setRating(foodavg.floatValue());
+        ambianceRating.setRating(ambianceavg.floatValue());
+        serviceRating.setRating(serviceavg.floatValue());
+        valueRating.setRating(valueavg.floatValue());
+        realm.commitTransaction();
     }
 
     public void goToEditPage(){
-        Intent i = new Intent(this, RestaurantEdit.class);
-        String restoUUID = resto.getUuid();
+        SharedPreferences prefs = getSharedPreferences("KatEatsPrefs", 0);
+        String userType = prefs.getString("logged_user_type", "null");
+        String userID = prefs.getString("logged_user_uuid", "null");
+        if (userType.equals("restaurant") && userID.equals(resto.getUuid())){
+            Intent i = new Intent(this, RestaurantEdit.class);
+            String restoUUID = resto.getUuid();
 
-        i.putExtra("restoID", restoUUID);
-        startActivity(i);
+            i.putExtra("restoID", restoUUID);
+            startActivity(i);
+        } else {
+            Toast toast = Toast.makeText(this, "You shalt not pass", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
     }
 
     public void onDestroy(){

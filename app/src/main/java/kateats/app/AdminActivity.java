@@ -67,7 +67,9 @@ public class AdminActivity extends AppCompatActivity {
                     .setTitle("Clear Database")
                     .setMessage("Are you sure you want to delete ALL users and restaurants?")
                     .setPositiveButton("Yes, Clear", (dialog, which) -> {
-                        realm.executeTransaction(r -> r.deleteAll());
+                        realm.beginTransaction();
+                        realm.deleteAll();
+                        realm.commitTransaction();
                         Toast.makeText(this, "Database cleared!", Toast.LENGTH_SHORT).show();
                     })
                     .setNegativeButton("Cancel", null)
