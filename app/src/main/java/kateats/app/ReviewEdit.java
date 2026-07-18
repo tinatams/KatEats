@@ -45,6 +45,7 @@ public class ReviewEdit extends AppCompatActivity {
     File getImageDir;
     File file;
     Realm realm;
+    Button cancel;
     Button submit;
 
     @Override
@@ -75,6 +76,7 @@ public class ReviewEdit extends AppCompatActivity {
         service = findViewById(R.id.editReviewService);
         submit = findViewById(R.id.editReviewSubmit);
         photo = findViewById(R.id.editReviewPhoto);
+        cancel = findViewById(R.id.cancelReviewEdit);
 
         restaurant.setText(review.getRestaurant().getName());
         comments.setText(review.getComment());
@@ -117,7 +119,7 @@ public class ReviewEdit extends AppCompatActivity {
                     Number avg = realm.where(Review.class).equalTo("restaurant.uuid", review.getRestaurant().getUuid()).average("overall");
                     review.getRestaurant().setRating(avg.floatValue());
                     realm.commitTransaction();
-
+                    Toast.makeText(ReviewEdit.this, "Edited review for " + review.getRestaurant().getName(), Toast.LENGTH_SHORT).show();
 
                     goToReviewDisplay();
                 }
@@ -129,6 +131,13 @@ public class ReviewEdit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 takePhoto();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToReviewDisplay();
             }
         });
     }
@@ -143,6 +152,7 @@ public class ReviewEdit extends AppCompatActivity {
     protected void goToReviewDisplay(){
         Intent i = new Intent(this, ReviewDisplay.class);
         startActivity(i);
+        finish();
     }
 
 

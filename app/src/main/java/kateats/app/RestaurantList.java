@@ -34,6 +34,7 @@ public class RestaurantList extends AppCompatActivity {
     RestaurantAdaptor adapter;
     RealmResults<Restaurant> filtered;
     Button submitFilters;
+    Button back;
     RatingBar filterRating;
     Spinner filterCuisine;
     CheckBox filterAlphabetical;
@@ -59,6 +60,7 @@ public class RestaurantList extends AppCompatActivity {
         filterAlphabetical = findViewById(R.id.alphabetical);
         filterCuisine = findViewById(R.id.filterCuisine);
         reviewButton = findViewById(R.id.reviewButton);
+        back = findViewById(R.id.backRestoList);
 
         String[] options = Restaurant.CUISINE_OPTIONS;
 
@@ -73,7 +75,16 @@ public class RestaurantList extends AppCompatActivity {
         submitFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 refreshList();
+                Toast.makeText(RestaurantList.this, "Filters applied", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveToLogin();
             }
         });
 
@@ -119,6 +130,11 @@ public class RestaurantList extends AppCompatActivity {
 
     public void moveToTinderSwipe(){
         Intent i = new Intent(this, TinderSwipe.class);
+        startActivity(i);
+    }
+
+    public void moveToLogin(){
+        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
     }
 

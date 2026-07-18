@@ -8,6 +8,16 @@
     tools:context=".ReviewWriting">
 
     <Button
+        android:id="@+id/cancelReviewWriting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF5722"
+        android:text="Cancel"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/reviewSubmit"
+        app:layout_constraintStart_toStartOf="@+id/reviewComments" />
+
+    <Button
         android:id="@+id/reviewSubmit"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"

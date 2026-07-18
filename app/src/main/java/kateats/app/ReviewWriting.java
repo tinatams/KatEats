@@ -43,6 +43,7 @@ public class ReviewWriting extends AppCompatActivity {
     User currentUser;
     AutoCompleteTextView restaurant;
     EditText comments;
+    Button cancel;
     RatingBar overall;
     RatingBar ambiance;
     RatingBar food;
@@ -105,6 +106,7 @@ public class ReviewWriting extends AppCompatActivity {
         submit = findViewById(R.id.reviewSubmit);
         photo = findViewById(R.id.reviewPhoto);
         photo.setImageResource(R.mipmap.ic_launcher);
+        cancel = findViewById(R.id.cancelReviewWriting);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +139,7 @@ public class ReviewWriting extends AppCompatActivity {
                         Number avg = realm.where(Review.class).equalTo("restaurant.uuid", chosenRestaurant.getUuid()).average("overall");
                         chosenRestaurant.setRating(avg.floatValue());
                         realm.commitTransaction();
+                        Toast.makeText(ReviewWriting.this, "Review for " + chosenRestaurantName + " has been created", Toast.LENGTH_SHORT).show();
 
 
                         goToReviewDisplay();
@@ -151,6 +154,13 @@ public class ReviewWriting extends AppCompatActivity {
                 takePhoto();
             }
         });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToReviewDisplay();
+            }
+        });
     }
 
     protected void onDestroy() {
@@ -161,6 +171,8 @@ public class ReviewWriting extends AppCompatActivity {
     }
 
     protected void goToReviewDisplay(){
+        Intent i = new Intent(this, ReviewDisplay.class);
+        startActivity(i);
         finish();
     }
 

@@ -8,17 +8,27 @@
     tools:context=".ReviewDisplay">
 
     <Button
-        android:id="@+id/makeReview"
+        android:id="@+id/backReviewDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="#3F51B5"
-        app:cornerRadius="0dp"
-        android:text="Make Review"
+        android:backgroundTint="#FF5722"
+        android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reviewView"
-        app:layout_constraintVertical_bias="0.479" />
+        app:layout_constraintTop_toBottomOf="@+id/reviewView" />
+
+    <Button
+        android:id="@+id/makeReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Make Review"
+        app:backgroundTint="#3F51B5"
+        app:cornerRadius="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/reviewView"
+        app:layout_constraintStart_toEndOf="@+id/backReviewDisplay"
+        app:layout_constraintTop_toTopOf="@+id/backReviewDisplay" />
 
     <TextView
         android:id="@+id/reviews"
