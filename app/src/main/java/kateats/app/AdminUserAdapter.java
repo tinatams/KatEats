@@ -84,11 +84,7 @@ public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAd
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Realm realm = user.getRealm();
-
-                realm.beginTransaction();
-                user.deleteFromRealm();
-                realm.commitTransaction();
+                activity.deleteUser(user);
             }
         });
 

@@ -87,11 +87,7 @@ public class AdminRestaurantAdapter extends RealmRecyclerViewAdapter<Restaurant,
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Realm realm = resto.getRealm();
-
-                realm.beginTransaction();
-                resto.deleteFromRealm();
-                realm.commitTransaction();
+                activity.deleteResto(resto);
             }
         });
 

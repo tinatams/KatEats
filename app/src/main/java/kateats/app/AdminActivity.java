@@ -1,5 +1,6 @@
 package kateats.app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -178,6 +179,66 @@ public class AdminActivity extends AppCompatActivity {
         super.onDestroy();
         if (realm != null) {
             realm.close();
+        }
+    }
+
+    public void deleteResto(Restaurant r) {
+        if (r.isValid()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
+            builder.setMessage("Do you want to delete " + r.getName() +"? This cannot be undone");
+            builder.setTitle("Alert!");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    realm.beginTransaction();
+                    realm.where(Review.class)
+                            .equalTo("restaurant.uuid", r.getUuid())
+                            .findAll()
+                            .deleteAllFromRealm();
+                    r.deleteFromRealm();
+                    realm.commitTransaction();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+        }
+    }
+
+    public void deleteUser(User u) {
+        if (u.isValid()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
+            builder.setMessage("Do you want to delete " + u.getName() +"? This cannot be undone");
+            builder.setTitle("Alert!");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    realm.beginTransaction();
+                    realm.where(Review.class)
+                            .equalTo("author.uuid", u.getUuid())
+                            .findAll()
+                            .deleteAllFromRealm();
+                    u.deleteFromRealm();
+                    realm.commitTransaction();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
         }
     }
 }
