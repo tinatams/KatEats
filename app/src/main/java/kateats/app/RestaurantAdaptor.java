@@ -19,16 +19,18 @@ import io.realm.RealmRecyclerViewAdapter;
 
 public class RestaurantAdaptor extends RealmRecyclerViewAdapter<Restaurant, RestaurantAdaptor.ViewHolder> {
     Context context;
-    public RestaurantAdaptor(Context context, @Nullable OrderedRealmCollection<Restaurant> data) {
+    int layoutID;
+    public RestaurantAdaptor(Context context, int layoutID, @Nullable OrderedRealmCollection<Restaurant> data) {
         super(data, true);
         this.context = context;
+        this.layoutID = layoutID;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create the raw view for this ViewHolder
-        View v = LayoutInflater.from(context).inflate(R.layout.restaurant_layout, parent, false);  // VERY IMPORTANT TO USE THIS STYLE
+        View v = LayoutInflater.from(context).inflate(layoutID, parent, false);  // VERY IMPORTANT TO USE THIS STYLE
 
         // assign view to the viewholder
         ViewHolder vh = new ViewHolder(v);

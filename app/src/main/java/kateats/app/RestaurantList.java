@@ -82,7 +82,7 @@ public class RestaurantList extends AppCompatActivity {
 
         restaurants = realm.where(Restaurant.class).findAll();
 
-        adapter = new RestaurantAdaptor(this, restaurants);
+        adapter = new RestaurantAdaptor(this, R.layout.restaurant_layout, restaurants);
         restaurantList.setAdapter(adapter);
 
         swipe = findViewById(R.id.cantDecide);

@@ -94,7 +94,7 @@ public class LikedRestaurants extends AppCompatActivity {
 
         //INSTANTIATE restoviewer
         restoSet = realm.where(Restaurant.class).equalTo("liked", true).findAll();
-        adaptor = new RestaurantAdaptor(this, restoSet);
+        adaptor = new RestaurantAdaptor(this, R.layout.liked_restaurant, restoSet);
         restoViewer.setAdapter(adaptor);
 
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
