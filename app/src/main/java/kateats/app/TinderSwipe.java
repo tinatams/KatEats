@@ -16,6 +16,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -99,6 +105,25 @@ public class TinderSwipe extends AppCompatActivity {
             return;
         }
         Restaurant r = restoList.get(restoNum);
+
+        // gives you the data object at the given position
+        File getImageDir = getExternalCacheDir();  // this method is in the Activity class
+
+        // just a sample, normally you have a diff image name each time
+        File file = new File(getImageDir, r.getUuid()+".jpeg");
+
+        if (file.exists()) {
+            // this will put the image saved to the file system to the imageview
+            Picasso.get()
+                    .load(file)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(restoImage);
+        }
+        else {
+            // use a default picture
+            restoImage.setImageResource(R.mipmap.ic_launcher);
+        }
         restoName.setText(r.getName());
         description.setText(r.getDescription());
         rating.setRating(r.getRating());
