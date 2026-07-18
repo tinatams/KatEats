@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -28,7 +29,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class RestaurantEdit extends AppCompatActivity {
-    EditText restoName, pass, conPass, title;
+    EditText restoName, pass, conPass ;
     Spinner cuisinePicker;
     EditText menuEdit, descEdit;
     Button saveButton;
@@ -36,6 +37,7 @@ public class RestaurantEdit extends AppCompatActivity {
     String restoID;
     ImageView image;
     Button cancel;
+    TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,7 @@ public class RestaurantEdit extends AppCompatActivity {
     }
 
     public void init(){
+        title = findViewById(R.id.placeRestoName);
         image = findViewById(R.id.imageRestView);
         pass = findViewById(R.id.passEdit);
         conPass = findViewById(R.id.passConEdit);
@@ -88,6 +91,7 @@ public class RestaurantEdit extends AppCompatActivity {
             Restaurant editR = realm.where(Restaurant.class).equalTo("uuid", restoID).findFirst();
 
             if (editR != null){
+                title.setText(editR.getName());
                 restoName.setText(editR.getName());
                 pass.setText(editR.getPassword());
                 menuEdit.setText(editR.getMenu());
