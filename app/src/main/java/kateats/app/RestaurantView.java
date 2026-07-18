@@ -15,8 +15,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.prefs.PreferenceChangeEvent;
-
 import io.realm.Realm;
 
 public class RestaurantView extends AppCompatActivity {
@@ -27,14 +25,14 @@ public class RestaurantView extends AppCompatActivity {
     TextView menu;
     Realm realm;
     Restaurant resto;
-    ImageButton editResto;
+    ImageButton editResto, back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_restaurant_view);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cancelTinder), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -44,9 +42,19 @@ public class RestaurantView extends AppCompatActivity {
     }
 
     String restoID;
+    public void onBack(){
+        finish();
+    }
     private void init(){
         Intent i = getIntent();
 
+        back = findViewById(R.id.cancelRestoView);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBack();
+            }
+        });
         cuisine = findViewById(R.id.cuisineText);
         restoName = findViewById(R.id.restaurantName);
         overallRating = findViewById(R.id.overallRating);

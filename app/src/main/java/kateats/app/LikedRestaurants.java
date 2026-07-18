@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -33,17 +34,20 @@ public class LikedRestaurants extends AppCompatActivity {
 
 
     Button submitFilters;
+    ImageButton back;
     RatingBar filterRating;
     Spinner filterCuisine;
     CheckBox filterAlphabetical;
 
-
+    public void onBack(){
+        finish();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_liked_restaurants);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cancelTinder), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -54,6 +58,13 @@ public class LikedRestaurants extends AppCompatActivity {
     }
 
     private void init(){
+        back = findViewById(R.id.cancelLikeList);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBack();
+            }
+        });
         searchBar = findViewById(R.id.likedRestoSearch);
         restoViewer = findViewById(R.id.likedRestoViewer);
 

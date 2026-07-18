@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -26,13 +27,14 @@ public class TinderSwipe extends AppCompatActivity {
     TextView description;
     RatingBar rating;
     ImageView restoImage;
+    ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tinder_swipe);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cancelTinder), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -42,6 +44,7 @@ public class TinderSwipe extends AppCompatActivity {
     }
     RealmResults<Restaurant> restoList;
     private void init(){
+        back = findViewById(R.id.cancelTinderButton);
         restoName = findViewById(R.id.restoNamePlaceholder);
         description = findViewById(R.id.descriptionTinder);
         rating = findViewById(R.id.ratingTinder);
@@ -76,6 +79,17 @@ public class TinderSwipe extends AppCompatActivity {
         }
         currentRestaurant = 0;
         setResto(currentRestaurant);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCancel();
+            }
+        });
+    }
+
+    private void onCancel() {
+        finish();
     }
 
     private void setResto(int restoNum){

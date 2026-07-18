@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="12dp"
-    android:id="@+id/main"
+    android:id="@+id/cancelTinder"
     android:gravity="center_vertical"
     android:background="?attr/selectableItemBackground"
     android:layout_marginBottom="4dp">

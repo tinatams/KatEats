@@ -1,10 +1,9 @@
 package kateats.app;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -27,7 +26,7 @@ import io.realm.RealmResults;
 public class AdminActivity extends AppCompatActivity {
 
     private RecyclerView rvUsers, rvRestaurants;
-    private Button btnAddAccount, btnClearAll;
+    private Button btnAddAccount, btnClearAll, cancel;
 
     private Realm realm;
     private AdminUserAdapter userAdapter;
@@ -38,7 +37,7 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cancelTinder), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -47,7 +46,18 @@ public class AdminActivity extends AppCompatActivity {
         init();
     }
 
+    public void onCancel(){
+        finish();
+    }
+
     private void init() {
+        cancel = findViewById(R.id.cancelAdmin);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCancel();
+            }
+        });
         rvUsers = findViewById(R.id.rvUsers);
         rvRestaurants = findViewById(R.id.rvRestaurants);
         btnAddAccount = findViewById(R.id.btnAdminAdd);

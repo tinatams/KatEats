@@ -2,7 +2,6 @@ package kateats.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,12 +16,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,19 +35,24 @@ public class RestaurantEdit extends AppCompatActivity {
     Realm realm;
     String restoID;
     ImageView image;
+    Button cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_restaurant_edit);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cancelTinder), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
         init();
+    }
+
+    public void onCancel(){
+        finish();
     }
 
     public void init(){
@@ -63,6 +64,7 @@ public class RestaurantEdit extends AppCompatActivity {
         menuEdit = findViewById(R.id.editMenu);
         saveButton = findViewById(R.id.saveBtn);
         descEdit = findViewById(R.id.editDesc);
+        cancel = findViewById(R.id.cancelRestoEdit);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +102,13 @@ public class RestaurantEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 takePhoto();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCancel();
             }
         });
 
