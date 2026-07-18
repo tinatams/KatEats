@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import io.realm.Realm;
 
@@ -25,6 +32,7 @@ public class RestaurantView extends AppCompatActivity {
     Realm realm;
     Restaurant resto;
     ImageButton editResto, back;
+    ImageView photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,7 @@ public class RestaurantView extends AppCompatActivity {
         valueRating = findViewById(R.id.valueRating);
         description = findViewById(R.id.descriptionView);
         editResto = findViewById(R.id.editRestaurantPage);
+        photo = findViewById(R.id.restoImage);
 
         realm = Realm.getDefaultInstance();
 
@@ -71,7 +80,6 @@ public class RestaurantView extends AppCompatActivity {
         }
 
         restoID = i.getStringExtra("restoID");
-
 
         resto = realm.where(Restaurant.class)
                 .equalTo("uuid", restoID)
@@ -95,16 +103,14 @@ public class RestaurantView extends AppCompatActivity {
         description.setText(resto.getDescription());
         cuisine.setText(resto.getCuisine());
 
-        realm.beginTransaction();
         Number foodavg = realm.where(Review.class).equalTo("restaurant.uuid", resto.getUuid()).average("food");
         Number ambianceavg = realm.where(Review.class).equalTo("restaurant.uuid", resto.getUuid()).average("ambiance");
         Number serviceavg = realm.where(Review.class).equalTo("restaurant.uuid", resto.getUuid()).average("service");
         Number valueavg = realm.where(Review.class).equalTo("restaurant.uuid", resto.getUuid()).average("value");
-        foodRating.setRating(foodavg.floatValue());
-        ambianceRating.setRating(ambianceavg.floatValue());
-        serviceRating.setRating(serviceavg.floatValue());
-        valueRating.setRating(valueavg.floatValue());
-        realm.commitTransaction();
+        foodRating.setRating(foodavg == null ? 0f : foodavg.floatValue());
+        ambianceRating.setRating(ambianceavg == null ? 0f : ambianceavg.floatValue());
+        serviceRating.setRating(serviceavg == null ? 0f : serviceavg.floatValue());
+        valueRating.setRating(valueavg == null ? 0f : valueavg.floatValue());
     }
 
     public void goToEditPage(){
@@ -129,6 +135,21 @@ public class RestaurantView extends AppCompatActivity {
         if (resto != null && resto.isValid()) resto.removeAllChangeListeners();
         if (!realm.isClosed()){
             realm.close();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        File image = new File(getExternalCacheDir(), restoID + ".jpeg");
+        if (image.exists()) {
+            Picasso.get().invalidate(image);
+            Picasso.get().load(image)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(photo);
+        } else {
+            photo.setImageResource(R.mipmap.ic_launcher);
         }
     }
 
