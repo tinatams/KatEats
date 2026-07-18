@@ -128,8 +128,15 @@ public class ReviewDisplay extends AppCompatActivity {
     }
 
     public void moveToReviewWriting(){
-        Intent i = new Intent(this, ReviewWriting.class);
-        startActivity(i);
+        SharedPreferences prefs = getSharedPreferences("KatEatsPrefs", 0);
+        String userType = prefs.getString("logged_user_type", "null");
+        if (userType.equals("customer") ){
+            Intent i = new Intent(this, ReviewWriting.class);
+            startActivity(i);
+        } else {
+            Toast toast = Toast.makeText(this, "You shalt not pass", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     public void moveToRestaurantList(){
