@@ -22,6 +22,8 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -219,11 +221,28 @@ public class AdminActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     realm.beginTransaction();
-                    realm.where(Review.class)
+                    RealmResults<Review> theirReviews = realm.where(Review.class)
                             .equalTo("author.uuid", u.getUuid())
-                            .findAll()
-                            .deleteAllFromRealm();
+                            .findAll();
+                    Set<String> affectedRestoUuids = new HashSet<>();
+                    for (Review rev : theirReviews) {
+                        if (rev.getRestaurant() != null) {
+                            affectedRestoUuids.add(rev.getRestaurant().getUuid());
+                        }
+                    }
+                    theirReviews.deleteAllFromRealm();
                     u.deleteFromRealm();
+                    for (String restoUuid : affectedRestoUuids) {
+                        Restaurant resto = realm.where(Restaurant.class)
+                                .equalTo("uuid", restoUuid)
+                                .findFirst();
+                        if (resto == null) continue;
+
+                        Number avg = realm.where(Review.class)
+                                .equalTo("restaurant.uuid", restoUuid)
+                                .average("overall");
+                        resto.setRating(avg == null ? 0f : avg.floatValue());
+                    }
                     realm.commitTransaction();
                 }
             });
