@@ -154,6 +154,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (existing == null) {
             Restaurant r = new Restaurant();
+            r.setUuid(uuid);
             r.setName(name);
             r.setPassword(password);
             r.setDescription(description);

@@ -114,11 +114,11 @@ public class AdminActivity extends AppCompatActivity {
     public static int REQUEST_CODE_IMAGE_SCREEN = 0;
 
     String type;
-    User remeberedUser;
+    User rememberedUser;
     Restaurant rememberedResto;
     public void takePhoto(@Nullable User u, @Nullable Restaurant r, String type)
     {
-        if (type.equals("USER")) remeberedUser = u;
+        if (type.equals("USER")) rememberedUser = u;
         else if (type.equals("RESTO")) rememberedResto = r;
 
         this.type = type;
@@ -143,9 +143,9 @@ public class AdminActivity extends AppCompatActivity {
                     //SAVE
                     // save rawImage to file
                     if (type.equals("USER")){
-                        File savedImage = saveFile(jpeg, remeberedUser.getUuid()+"user.jpeg");
+                        File savedImage = saveFile(jpeg, rememberedUser.getUuid()+".jpeg");
                     } else if (type.equals("RESTO")){
-                        File savedImage = saveFile(jpeg, remeberedUser.getUuid()+"resto.jpeg");
+                        File savedImage = saveFile(jpeg, rememberedResto.getUuid()+".jpeg");
                     }
 
                 }

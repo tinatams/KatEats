@@ -55,10 +55,9 @@ public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAd
         return vh;
     }
 
-    User user;
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        user = getItem(position);
+        final User user = getItem(position);
         holder.accName.setText(user.getName());
         holder.accPassword.setText(user.getPassword());
 
@@ -66,7 +65,7 @@ public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAd
         File getImageDir = activity.getExternalCacheDir();  // this method is in the Activity class
 
         // just a sample, normally you have a diff image name each time
-        File file = new File(getImageDir, user.getUuid()+"user.jpeg");
+        File file = new File(getImageDir, user.getUuid()+".jpeg");
 
         if (file.exists()) {
             // this will put the image saved to the file system to the imageview

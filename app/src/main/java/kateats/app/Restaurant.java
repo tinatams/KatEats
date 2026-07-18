@@ -56,6 +56,10 @@ public class Restaurant extends RealmObject {
         this.liked = liked;
     }
 
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     public String getUuid() {
         return uuid;
     }
@@ -90,4 +94,6 @@ public class Restaurant extends RealmObject {
     public void setMenu(String menu) {
         this.menu = menu;
     }
+
+
 }

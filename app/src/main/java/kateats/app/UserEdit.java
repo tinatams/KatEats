@@ -63,7 +63,7 @@ public class UserEdit extends AppCompatActivity {
         imgRegisterProfile.setImageResource(R.mipmap.ic_launcher);
 
         etRegUsername.setText(user.getName());
-        etRegUsername.setText(user.getPassword());
+        etRegPassword.setText(user.getPassword());
         etRegConfirmPassword.setText(user.getPassword());
 
         getImageDir = getExternalCacheDir();
@@ -112,7 +112,7 @@ public class UserEdit extends AppCompatActivity {
     }
 
     private void registerRegularUser(String name, String password) {
-        User existing = realm.where(User.class).equalTo("name", name).findFirst();
+        User existing = realm.where(User.class).equalTo("name", name).notEqualTo("uuid", uuid).findFirst();
 
         if (existing == null) {
             realm.beginTransaction();
