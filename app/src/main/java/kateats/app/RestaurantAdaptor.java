@@ -14,6 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+
 import io.realm.OrderedRealmCollection;
 import io.realm.RealmRecyclerViewAdapter;
 
@@ -57,6 +63,25 @@ public class RestaurantAdaptor extends RealmRecyclerViewAdapter<Restaurant, Rest
                 context.startActivity(i);
             }
         });
+
+        // gives you the data object at the given position
+        File getImageDir = context.getExternalCacheDir();  // this method is in the Activity class
+
+        // just a sample, normally you have a diff image name each time
+        File file = new File(getImageDir, resto.getUuid()+".jpeg");
+
+        if (file.exists()) {
+            // this will put the image saved to the file system to the imageview
+            Picasso.get()
+                    .load(file)
+                    .networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(holder.image);
+        }
+        else {
+            // use a default picture
+            holder.image.setImageResource(R.mipmap.ic_launcher);
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
