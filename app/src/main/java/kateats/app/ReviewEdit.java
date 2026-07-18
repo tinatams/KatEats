@@ -42,7 +42,6 @@ public class ReviewEdit extends AppCompatActivity {
     String uuid;
     Review review;
     TextView restaurant;
-    Restaurant restoObject;
     EditText comments;
     RatingBar overall;
     RatingBar ambiance;
