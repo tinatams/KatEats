@@ -110,6 +110,13 @@ public class AdminRestaurantAdapter extends RealmRecyclerViewAdapter<Restaurant,
                 activity.takePhoto(null, resto, "RESTO");
             }
         });
+
+        holder.photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.takePhoto(null, resto, "RESTO");
+            }
+        });
     }
 
 }

@@ -107,6 +107,13 @@ public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAd
                 activity.takePhoto(user, null, "USER");
             }
         });
+
+        holder.photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.takePhoto(user, null, "USER");
+            }
+        });
     }
 
 }
