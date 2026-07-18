@@ -28,13 +28,12 @@ public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAd
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView pfp;
         TextView accName, accPassword;
-        ImageButton photo, edit, delete;
+        ImageButton edit, delete;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             pfp = itemView.findViewById(R.id.imgRowProfile);
             accName = itemView.findViewById(R.id.tvRowName);
             accPassword = itemView.findViewById(R.id.tvRowPassword);
-            photo = itemView.findViewById(R.id.btnRowCamera);
             edit = itemView.findViewById(R.id.btnRowEdit);
             delete = itemView.findViewById(R.id.btnRowDelete);
         }
@@ -83,11 +82,7 @@ public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAd
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Realm realm = user.getRealm();
-
-                realm.beginTransaction();
-                user.deleteFromRealm();
-                realm.commitTransaction();
+                activity.deleteUser(user);
             }
         });
 
@@ -100,19 +95,6 @@ public class AdminUserAdapter extends RealmRecyclerViewAdapter<User, AdminUserAd
             }
         });
 
-        holder.pfp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.takePhoto(user, null, "USER");
-            }
-        });
-
-        holder.photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                activity.takePhoto(user, null, "USER");
-            }
-        });
     }
 
 }

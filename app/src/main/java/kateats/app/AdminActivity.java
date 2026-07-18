@@ -1,5 +1,6 @@
 package kateats.app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -116,15 +119,6 @@ public class AdminActivity extends AppCompatActivity {
     String type;
     User rememberedUser;
     Restaurant rememberedResto;
-    public void takePhoto(@Nullable User u, @Nullable Restaurant r, String type)
-    {
-        if (type.equals("USER")) rememberedUser = u;
-        else if (type.equals("RESTO")) rememberedResto = r;
-
-        this.type = type;
-        Intent i = new Intent(this, ImageActivity.class);
-        startActivityForResult(i, REQUEST_CODE_IMAGE_SCREEN);
-    }
 
 
     public void onActivityResult(int requestCode, int responseCode, Intent data)
@@ -144,8 +138,12 @@ public class AdminActivity extends AppCompatActivity {
                     // save rawImage to file
                     if (type.equals("USER")){
                         File savedImage = saveFile(jpeg, rememberedUser.getUuid()+".jpeg");
+                        Picasso.get().invalidate(savedImage);
+                        userAdapter.notifyDataSetChanged();
                     } else if (type.equals("RESTO")){
                         File savedImage = saveFile(jpeg, rememberedResto.getUuid()+".jpeg");
+                        Picasso.get().invalidate(savedImage);
+                        restaurantAdapter.notifyDataSetChanged();
                     }
 
                 }
@@ -178,6 +176,66 @@ public class AdminActivity extends AppCompatActivity {
         super.onDestroy();
         if (realm != null) {
             realm.close();
+        }
+    }
+
+    public void deleteResto(Restaurant r) {
+        if (r.isValid()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
+            builder.setMessage("Do you want to delete " + r.getName() +"? This cannot be undone");
+            builder.setTitle("Alert!");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    realm.beginTransaction();
+                    realm.where(Review.class)
+                            .equalTo("restaurant.uuid", r.getUuid())
+                            .findAll()
+                            .deleteAllFromRealm();
+                    r.deleteFromRealm();
+                    realm.commitTransaction();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+        }
+    }
+
+    public void deleteUser(User u) {
+        if (u.isValid()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(AdminActivity.this);
+            builder.setMessage("Do you want to delete " + u.getName() +"? This cannot be undone");
+            builder.setTitle("Alert!");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    realm.beginTransaction();
+                    realm.where(Review.class)
+                            .equalTo("author.uuid", u.getUuid())
+                            .findAll()
+                            .deleteAllFromRealm();
+                    u.deleteFromRealm();
+                    realm.commitTransaction();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
         }
     }
 }
