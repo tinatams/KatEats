@@ -117,7 +117,7 @@ public class RestaurantEdit extends AppCompatActivity {
         File getImageDir = getExternalCacheDir();  // this method is in the Activity class
 
         // just a sample, normally you have a diff image name each time
-        File file = new File(getImageDir, restoID+"resto.jpeg");
+        File file = new File(getImageDir, restoID+".jpeg");
 
         if (file.exists()) {
             // this will put the image saved to the file system to the imageview
@@ -216,12 +216,12 @@ public class RestaurantEdit extends AppCompatActivity {
                 try {
                     //SAVE
                     // save rawImage to file
-                    File savedImage = saveFile(jpeg, restoID+"resto.jpeg");
+                    File savedImage = saveFile(jpeg, restoID+".jpeg");
 
                     File getImageDir = getExternalCacheDir();  // this method is in the Activity class
 
                     // just a sample, normally you have a diff image name each time
-                    File file = new File(getImageDir, restoID+"resto.jpeg");
+                    File file = new File(getImageDir, restoID+".jpeg");
 
 
                     if (file.exists()) {

@@ -58,10 +58,9 @@ public class AdminRestaurantAdapter extends RealmRecyclerViewAdapter<Restaurant,
         return vh;
     }
 
-    Restaurant resto;
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        resto = getItem(position);
+        final Restaurant resto = getItem(position);
         holder.accName.setText(resto.getName());
         holder.accPassword.setText(resto.getPassword());
 
@@ -69,7 +68,7 @@ public class AdminRestaurantAdapter extends RealmRecyclerViewAdapter<Restaurant,
         File getImageDir = activity.getExternalCacheDir();  // this method is in the Activity class
 
         // just a sample, normally you have a diff image name each time
-        File file = new File(getImageDir, resto.getUuid()+"resto.jpeg");
+        File file = new File(getImageDir, resto.getUuid()+".jpeg");
 
         if (file.exists()) {
             // this will put the image saved to the file system to the imageview
