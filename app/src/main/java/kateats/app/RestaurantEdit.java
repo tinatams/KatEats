@@ -28,7 +28,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class RestaurantEdit extends AppCompatActivity {
-    EditText restoName, pass, conPass;
+    EditText restoName, pass, conPass, title;
     Spinner cuisinePicker;
     EditText menuEdit, descEdit;
     Button saveButton;
