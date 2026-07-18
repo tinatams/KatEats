@@ -125,6 +125,7 @@ public class TinderSwipe extends AppCompatActivity {
     public void allDone(){
         Intent i = new Intent(this, LikedRestaurants.class);
         startActivity(i);
+        finish();
     }
 
     public void onDestroy(){

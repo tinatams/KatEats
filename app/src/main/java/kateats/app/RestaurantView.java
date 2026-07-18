@@ -22,7 +22,6 @@ public class RestaurantView extends AppCompatActivity {
     RatingBar overallRating;
     RatingBar foodRating, ambianceRating, serviceRating, valueRating;
     TextView description;
-    TextView menu;
     Realm realm;
     Restaurant resto;
     ImageButton editResto, back;
@@ -63,7 +62,6 @@ public class RestaurantView extends AppCompatActivity {
         serviceRating = findViewById(R.id.serviceRating);
         valueRating = findViewById(R.id.valueRating);
         description = findViewById(R.id.descriptionView);
-        menu = findViewById(R.id.menuView);
         editResto = findViewById(R.id.editRestaurantPage);
 
         realm = Realm.getDefaultInstance();
@@ -95,7 +93,6 @@ public class RestaurantView extends AppCompatActivity {
         restoName.setText(resto.getName());
         overallRating.setRating(resto.getRating());
         description.setText(resto.getDescription());
-        menu.setText(resto.getMenu());
         cuisine.setText(resto.getCuisine());
 
         realm.beginTransaction();

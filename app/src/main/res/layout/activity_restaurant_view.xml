@@ -9,13 +9,24 @@
 
     <ImageView
         android:id="@+id/restoImage"
-        android:layout_width="339dp"
-        android:layout_height="173dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="351dp"
+        android:layout_height="234dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/overallRating"
         app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/cuisineText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/overallRating"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/overallRating"
+        app:layout_constraintTop_toBottomOf="@+id/overallRating" />
 
     <RatingBar
         android:id="@+id/overallRating"
@@ -67,11 +78,11 @@
         android:id="@+id/descriptionView"
         android:layout_width="378dp"
         android:layout_height="126dp"
-        android:layout_marginTop="12dp"
-        android:textColor="#777777"
+        android:layout_marginTop="16dp"
         android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam."
+        android:textColor="#777777"
         app:layout_constraintEnd_toEndOf="@+id/restoImage"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="@+id/restoImage"
         app:layout_constraintTop_toBottomOf="@+id/valueRating" />
 
@@ -86,47 +97,11 @@
         app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Menu"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionView" />
-
-    <ScrollView
-        android:layout_width="388dp"
-        android:layout_height="165dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="@+id/descriptionView"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@+id/descriptionView"
-        app:layout_constraintTop_toBottomOf="@+id/textView9">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/menuView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textColor="#777777"
-                android:text=" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et placerat eros, quis pulvinar elit. Proin placerat risus eget libero tincidunt, ut imperdiet ante fermentum. Donec eget sem elementum, tempus nisl eget, tincidunt magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc at sem diam." />
-        </LinearLayout>
-    </ScrollView>
-
-    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="40dp"
         android:text="Food Drink"
         app:layout_constraintStart_toStartOf="@+id/descriptionView"
         app:layout_constraintTop_toBottomOf="@+id/restoImage" />
@@ -182,17 +157,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_edit" />
-
-    <TextView
-        android:id="@+id/cuisineText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="@+id/overallRating"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@+id/overallRating"
-        app:layout_constraintTop_toBottomOf="@+id/overallRating" />
 
     <ImageButton
         android:id="@+id/cancelRestoView"
