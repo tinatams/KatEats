@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -88,7 +89,6 @@ public class LikedRestaurants extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 refreshList();
-                //filterResto();
             }
         });
 
@@ -137,7 +137,6 @@ public class LikedRestaurants extends AppCompatActivity {
     public void refreshList(){
         float rating = filterRating.getRating();
         String cuisine =  filterCuisine.getSelectedItem().toString();
-        boolean alpha = filterAlphabetical.isChecked();
 
         RealmQuery<Restaurant> query = realm
                 .where(Restaurant.class)
@@ -156,6 +155,8 @@ public class LikedRestaurants extends AppCompatActivity {
         filtered = filterAlphabetical.isChecked() ? query.sort("name").findAll() : query.findAll();
 
         adaptor.updateData(filtered);
+        Toast toast = Toast.makeText(this, "Filtered", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void onDestroy(){

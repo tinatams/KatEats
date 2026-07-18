@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -143,6 +144,8 @@ public class RestaurantList extends AppCompatActivity {
         filtered = filterAlphabetical.isChecked() ? query.sort("name").findAll() : query.findAll();
 
         adapter.updateData(filtered);
+        Toast toast = Toast.makeText(this, "Filtered", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     protected void onDestroy() {
