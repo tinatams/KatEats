@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -108,6 +109,8 @@ public class TinderSwipe extends AppCompatActivity {
         restoList.get(currentRestaurant).setLiked(true);
         realm.commitTransaction();
         setResto(++currentRestaurant);
+        Toast toast = Toast.makeText(this, "Restaurant Liked", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void nayResto(){
@@ -115,6 +118,8 @@ public class TinderSwipe extends AppCompatActivity {
         restoList.get(currentRestaurant).setLiked(false);
         realm.commitTransaction();
         setResto(++currentRestaurant);
+        Toast toast = Toast.makeText(this, "Restaurant Disliked", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void allDone(){

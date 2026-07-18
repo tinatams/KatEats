@@ -160,6 +160,8 @@ public class RestaurantList extends AppCompatActivity {
         filtered = filterAlphabetical.isChecked() ? query.sort("name").findAll() : query.findAll();
 
         adapter.updateData(filtered);
+        Toast toast = Toast.makeText(this, "Filtered", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     protected void onDestroy() {
