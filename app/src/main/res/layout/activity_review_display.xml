@@ -9,9 +9,10 @@
 
     <Button
         android:id="@+id/makeReview"
-        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:backgroundTint="#3F51B5"
+        app:cornerRadius="0dp"
         android:text="Make Review"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +72,8 @@
                     <Button
                         android:id="@+id/submitReviewFilters"
                         android:layout_width="wrap_content"
+                        app:backgroundTint="#3F51B5"
+                        app:cornerRadius="0dp"
                         android:layout_height="wrap_content"
                         android:text="submit" />
 
@@ -125,6 +128,8 @@
                         style="@style/Widget.AppCompat.RatingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="43dp"
+                        android:progressTint="#FF5722"
+                        android:secondaryProgressTint="#FF5722"
                         android:layout_column="1"
                         android:isIndicator="false"
                         android:isScrollContainer="false"

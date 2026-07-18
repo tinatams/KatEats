@@ -9,7 +9,8 @@
 
     <Button
         android:id="@+id/editReviewSubmit"
-        style="@style/Widget.AppCompat.Button"
+        app:backgroundTint="#3F51B5"
+        app:cornerRadius="0dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -103,6 +104,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:isIndicator="false"
+        android:progressTint="#FF5722"
+        android:secondaryProgressTint="#FF5722"
         android:scaleX="1"
         android:scaleY="1"
         app:layout_constraintEnd_toEndOf="parent"
