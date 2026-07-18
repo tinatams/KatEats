@@ -150,4 +150,14 @@
             </TableLayout>
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/backRestoList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF5722"
+        android:text="Back"
+        app:layout_constraintEnd_toStartOf="@+id/cantDecide"
+        app:layout_constraintStart_toEndOf="@+id/reviewButton"
+        app:layout_constraintTop_toTopOf="@+id/reviewButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

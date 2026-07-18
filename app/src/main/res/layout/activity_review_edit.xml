@@ -8,13 +8,23 @@
     tools:context=".ReviewEdit">
 
     <Button
-        android:id="@+id/editReviewSubmit"
-        app:backgroundTint="#3F51B5"
+        android:id="@+id/cancelReviewEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF5722"
+        android:text="Cancel"
         app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editReviewSubmit"
+        app:layout_constraintStart_toStartOf="@+id/editReviewComments" />
+
+    <Button
+        android:id="@+id/editReviewSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Submit Review"
+        android:text="Edit Review"
+        app:backgroundTint="#3F51B5"
+        app:cornerRadius="0dp"
         app:layout_constraintEnd_toEndOf="@+id/editReviewComments"
         app:layout_constraintTop_toBottomOf="@+id/editReviewComments" />
 
