@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +40,7 @@ public class ReviewDisplay extends AppCompatActivity {
     ArrayList<String> restaurantNames = new ArrayList<>();
     RealmResults<Review> filtered;
     ReviewAdaptor adapter;
+    Button back;
     SharedPreferences sharedPrefs;
     String currentUserUuid;
 
@@ -64,6 +66,7 @@ public class ReviewDisplay extends AppCompatActivity {
         filterRating = findViewById(R.id.filterReviewRating);
         filterCuisine = findViewById(R.id.filterReviewCuisine);
         filterEarliest = findViewById(R.id.earliestReview);
+        back = findViewById(R.id.backReviewDisplay);
 
         String[] options = Restaurant.CUISINE_OPTIONS;
 
@@ -108,16 +111,29 @@ public class ReviewDisplay extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                moveToRestaurantList();
+            }
+        });
+
         submitFilters.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 refreshList();
+                Toast.makeText(ReviewDisplay.this, "Filters applied", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void moveToReviewWriting(){
         Intent i = new Intent(this, ReviewWriting.class);
+        startActivity(i);
+    }
+
+    public void moveToRestaurantList(){
+        Intent i = new Intent(this, RestaurantList.class);
         startActivity(i);
     }
 
